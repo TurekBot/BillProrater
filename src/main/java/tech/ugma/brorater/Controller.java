@@ -118,7 +118,7 @@ public class Controller implements Initializable {
 
             result.ifPresent(bill -> {
                 // Add bill to bill list
-
+                billTable.getItems().add(bill);
                 // Persist bill to storage
 
             });
