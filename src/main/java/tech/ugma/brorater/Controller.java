@@ -143,9 +143,43 @@ public class Controller implements Initializable {
     }
 
     private Dialog<Person> setUpNewPersonDialog() {
+        Dialog<Person> dialog = new Dialog<>();
 
+        TextField nameTextField = new TextField();
+        nameTextField.setPromptText("Name");
+
+        DatePicker moveInDatePicker = new DatePicker();
+        moveInDatePicker.setPromptText("Move-In Date");
+
+        DatePicker moveOutDatePicker = new DatePicker();
+        moveOutDatePicker.setPromptText("Move-Out Date");
+
+        VBox vBox = new VBox(nameTextField, moveInDatePicker, moveOutDatePicker);
+        vBox.setSpacing(10);
+
+
+        dialog.getDialogPane().setContent(vBox);
+
+        dialog.setResultConverter(buttonType -> {
+
+            if (ButtonType.OK.equals(buttonType)) {
+                // Make and return a person
+                Person person = new Person();
+                person.setName(nameTextField.getText());
+                person.setStartDate(moveInDatePicker.getValue());
+                person.setEndDate(moveInDatePicker.getValue());
+                return person;
+            }
+
+            return null;
+        });
+
+        dialog.getDialogPane().getButtonTypes().addAll(
+                ButtonType.OK,
+                ButtonType.CANCEL
+        );
         // Return the dialog
-        return null;
+        return dialog;
     }
 
     private Dialog<Bill> setUpNewBillDialog() {
