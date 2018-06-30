@@ -45,7 +45,7 @@
     </MenuBar>
     <AnchorPane VBox.vgrow="ALWAYS">
         <VBox layoutX="22.0" layoutY="48.0" prefHeight="533.0" prefWidth="538.0" spacing="10.0">
-            <Button mnemonicParsing="false" text="New Person"/>
+            <Button fx:id="newPersonButton" mnemonicParsing="false" text="New Person"/>
             <TableView prefHeight="290.0" prefWidth="115.0">
                 <columns>
                     <TableColumn prefWidth="140.0" text="Name"/>
@@ -54,7 +54,7 @@
                     <TableColumn prefWidth="75.0" text="Balance Due"/>
                 </columns>
             </TableView>
-            <Button mnemonicParsing="false" text="New Bill"/>
+            <Button fx:id="newBillButton" mnemonicParsing="false" text="New Bill"/>
             <TableView prefHeight="318.0" prefWidth="200.0">
                 <columns>
                     <TableColumn prefWidth="150.0" text="Bill"/>

@@ -6,6 +6,7 @@ plugins {
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
+mainClassName = 'tech.ugma.brorater.Brorater'
 
 repositories {
     mavenCentral()

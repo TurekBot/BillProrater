@@ -4,9 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 import tech.ugma.brorater.model.Person;
 
 import java.net.URL;
@@ -54,26 +54,56 @@ public class Controller implements Initializable {
     private void setUpNewPersonButton() {
         Dialog<Person> newPersonDialog = setUpNewPersonDialog();
 
-        newPersonButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                newPersonDialog.showAndWait();
-                Optional<Person> result = newPersonDialog.showAndWait();
+        newPersonButton.setOnAction(event -> {
+            Optional<Person> result = newPersonDialog.showAndWait();
 
-                result.ifPresent(person -> {
-                    // Add person to person list
+            result.ifPresent(person -> {
+                // Add person to person list
 
-                    // Persist person to storage
+                // Persist person to storage
 
-                });
-            }
+            });
         });
 
     }
 
     private Dialog<Person> setUpNewPersonDialog() {
+        Dialog<Person> dialog = new Dialog<>();
 
+        TextField nameTextField = new TextField();
+        nameTextField.setPromptText("Name");
+
+        DatePicker moveInDatePicker = new DatePicker();
+        moveInDatePicker.setPromptText("Move-In Date");
+
+        DatePicker moveOutDatePicker = new DatePicker();
+        moveOutDatePicker.setPromptText("Move-Out Date");
+
+        VBox vBox = new VBox(nameTextField, moveInDatePicker, moveOutDatePicker);
+        vBox.setSpacing(10);
+
+
+        dialog.getDialogPane().setContent(vBox);
+
+        dialog.setResultConverter(buttonType -> {
+
+            if (ButtonType.OK.equals(buttonType)) {
+                // Make and return a person
+                Person person = new Person();
+                person.setName(nameTextField.getText());
+                person.setStartDate(moveInDatePicker.getValue());
+                person.setEndDate(moveInDatePicker.getValue());
+                return person;
+            }
+
+            return null;
+        });
+
+        dialog.getDialogPane().getButtonTypes().addAll(
+                ButtonType.OK,
+                ButtonType.CANCEL
+        );
         // Return the dialog
-        return null;
+        return dialog;
     }
 }
