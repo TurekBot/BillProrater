@@ -36,10 +36,13 @@ public class Warehouse {
             // TODO: 6/30/2018  setPersonFilePath(file);
 
         } catch (Exception e) { // catches ANY exception
+            e.printStackTrace();
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Could not load data");
-            alert.setContentText("Could not load data from file:\n" + file.getPath());
+            alert.setContentText("Could not load data from file:\n" + file.getPath() + "\n" +
+                    "Error: " + e.getLocalizedMessage());
+
 
             alert.showAndWait();
         }
@@ -68,10 +71,12 @@ public class Warehouse {
             // Save the file path to the registry.
             // TODO: 6/30/2018  setPersonFilePath(file);
         } catch (Exception e) { // catches ANY exception
+            e.printStackTrace();
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Could not save data");
-            alert.setContentText("Could not save data to file:\n" + file.getPath());
+            alert.setContentText("Could not save data to file:\n" + file.getPath() + "\n" +
+                    "Error: " + e.getLocalizedMessage());
 
             alert.showAndWait();
         }

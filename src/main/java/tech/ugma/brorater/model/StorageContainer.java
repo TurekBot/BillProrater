@@ -4,6 +4,7 @@ package tech.ugma.brorater.model;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -20,6 +21,7 @@ public class StorageContainer {
     private List<Bill> bills;
 
     @XmlElement(name = "person")
+    @XmlElementWrapper(name="people")
     public List<Person> getPersons() {
         return persons;
     }
@@ -30,6 +32,7 @@ public class StorageContainer {
 
 
     @XmlElement(name = "bill")
+    @XmlElementWrapper(name = "bills")
     public List<Bill> getBills() {
         return bills;
     }
