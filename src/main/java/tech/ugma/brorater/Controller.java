@@ -9,8 +9,8 @@ import javafx.stage.Stage;
 import tech.ugma.brorater.model.Bill;
 import tech.ugma.brorater.model.Calculation;
 import tech.ugma.brorater.model.Person;
+import tech.ugma.brorater.warehouse.Warehouse;
 
-import javax.swing.text.html.Option;
 import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
@@ -18,6 +18,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
+    @FXML
+    private MenuItem saveMenuItem;
+
     public Button newCalculateButton;
     @FXML
     private MenuItem exportMenuButton;
@@ -82,6 +85,12 @@ public class Controller implements Initializable {
         setUpCalculateButton();
     }
 
+
+    private Dialog<Calculation> setUpCalculateDialog() {
+
+        return null;
+    }
+
     private void setUpCalculateButton() {
         Dialog<Calculation> newCalculateDialog = setUpCalculateDialog();
 
@@ -100,23 +109,67 @@ public class Controller implements Initializable {
     }
 
 
-    private Dialog<Calculation> setUpCalculateDialog() {
 
-        return null;
-    }
 
-    private void setUpNewBillButton() {
-        Dialog<Bill> newBillDialog = setUpNewBillDialog();
+    private void setUpMenu() {
 
-        newBillButton.setOnAction(event -> {
-            Optional<Bill> result = newBillDialog.showAndWait();
+        saveMenuItem.setOnAction(event -> {
+            fileChooser.setTitle("Save Brorate project");
 
-            result.ifPresent(bill -> {
-                // Add bill to bill list
-                billTable.getItems().add(bill);
-                // Persist bill to storage
+            // This only allows the user to select "*.xml" files
+            FileChooser.ExtensionFilter filter =
+                    new FileChooser.ExtensionFilter("XML files", "*.xml");
 
-            });
+            fileChooser.getExtensionFilters().clear();
+            fileChooser.getExtensionFilters().add(filter);
+
+            // Passing in the primaryStage makes it so that any input to the rest
+            // of the windows is blocked: the user can only interact with the FileChoose
+            File saveFile = fileChooser.showSaveDialog(primaryStage);
+
+            Warehouse.savePersonDataToFile(saveFile, personTable, billTable);
+        });
+
+        exportMenuButton.setOnAction(event -> {
+            fileChooser.setTitle("Export Location");
+            fileChooser.showSaveDialog(primaryStage);
+        });
+
+
+        openMenuItem.setOnAction(event -> {
+            fileChooser.setTitle("Choose an XML file containing Person and Bill data");
+
+            // This only allows the user to select "*.xml" files
+            FileChooser.ExtensionFilter filter =
+                    new FileChooser.ExtensionFilter("XML files", "*.xml");
+
+            fileChooser.getExtensionFilters().clear();
+            fileChooser.getExtensionFilters().add(filter);
+
+            // Passing in the primaryStage makes it so that any input to the rest
+            // of the windows is blocked: the user can only interact with the FileChoose
+            File file = fileChooser.showOpenDialog(primaryStage);
+
+            Warehouse.loadDataFromFile(file, personTable, billTable);
+
+        });
+
+        openMenuItem.setOnAction(event -> {
+            fileChooser.setTitle("Choose an XML file containing Person and Bill data");
+
+            // This only allows the user to select "*.xml" files
+            FileChooser.ExtensionFilter filter =
+                    new FileChooser.ExtensionFilter("XML files", "*.xml");
+
+            fileChooser.getExtensionFilters().clear();
+            fileChooser.getExtensionFilters().add(filter);
+
+            // Passing in the primaryStage makes it so that any input to the rest
+            // of the windows is blocked: the user can only interact with the FileChoose
+            File file = fileChooser.showOpenDialog(primaryStage);
+
+            Warehouse.loadDataFromFile(file, personTable, billTable);
+
         });
 
     }
@@ -145,24 +198,6 @@ public class Controller implements Initializable {
 
     }
 
-    private void setUpMenu() {
-
-        exportMenuButton.setOnAction(event -> {
-            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PDF ", "*.pdf"));
-            fileChooser.setTitle("Export Location");
-            File saveFile = fileChooser.showSaveDialog(primaryStage);
-            FirstPdf.generate(saveFile);
-
-        });
-
-
-        openMenuItem.setOnAction(event -> {
-            fileChooser.setTitle("Choose a file ");
-            fileChooser.showOpenDialog(primaryStage);
-        });
-    }
-
-
     private void setUpPersonTable() {
 
         /*Cell Value Factories*/
@@ -185,6 +220,22 @@ public class Controller implements Initializable {
         // The cell factories tell the table how each cell in a given column
         // should look
 
+
+    }
+
+    private void setUpNewBillButton() {
+        Dialog<Bill> newBillDialog = setUpNewBillDialog();
+
+        newBillButton.setOnAction(event -> {
+            Optional<Bill> result = newBillDialog.showAndWait();
+
+            result.ifPresent(bill -> {
+                // Add bill to bill list
+                billTable.getItems().add(bill);
+                // Persist bill to storage
+
+            });
+        });
 
     }
 
