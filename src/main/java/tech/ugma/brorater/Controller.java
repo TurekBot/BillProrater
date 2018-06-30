@@ -67,6 +67,26 @@ public class Controller implements Initializable {
 
     private void setUpBillTable() {
 
+        /*Cell Value Factories*/
+        // The cell value factories tell the table which part of the person
+        // to put in that column
+        billNameColumn.setCellValueFactory(cellData ->
+                cellData.getValue().nameProperty()
+        );
+        startDateColumn.setCellValueFactory(cellData ->
+                cellData.getValue().startDateProperty()
+        );
+        endDateColumn.setCellValueFactory(cellData ->
+                cellData.getValue().endDateProperty()
+        );
+        totalColumn.setCellValueFactory(cellData ->
+                cellData.getValue().totalProperty().asObject()
+        );
+
+        /*Cell Factories*/
+        // The cell factories tell the table how each cell in a given column
+        // should look
+
     }
 
     private void setUpPersonTable() {
