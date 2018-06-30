@@ -6,10 +6,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import tech.ugma.brorater.model.Bill;
 import tech.ugma.brorater.model.Person;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -19,14 +22,37 @@ public class Controller implements Initializable {
     private Button newPersonButton; // Value injected by FXMLLoader
 
     @FXML // fx:id="personTable"
-    private TableView<?> personTable; // Value injected by FXMLLoader
+    private TableView<Person> personTable; // Value injected by FXMLLoader
+
+    @FXML // fx:id="personNameColumn"
+    private TableColumn<Person, String> personNameColumn; // Value injected by FXMLLoader
+
+    @FXML // fx:id="moveInDateColumn"
+    private TableColumn<Person, LocalDate> moveInDateColumn; // Value injected by FXMLLoader
+
+    @FXML // fx:id="moveoutDateColumn"
+    private TableColumn<Person, LocalDate> moveoutDateColumn; // Value injected by FXMLLoader
+
+    @FXML // fx:id="balanceDueColumn"
+    private TableColumn<Person, Double> balanceDueColumn; // Value injected by FXMLLoader
 
     @FXML // fx:id="newBillButton"
     private Button newBillButton; // Value injected by FXMLLoader
 
     @FXML // fx:id="billTable"
-    private TableView<?> billTable; // Value injected by FXMLLoader
+    private TableView<Bill> billTable; // Value injected by FXMLLoader
 
+    @FXML // fx:id="billNameColumn"
+    private TableColumn<Bill, String> billNameColumn; // Value injected by FXMLLoader
+
+    @FXML // fx:id="startDateColumn"
+    private TableColumn<Bill, LocalDate> startDateColumn; // Value injected by FXMLLoader
+
+    @FXML // fx:id="endDateColumn"
+    private TableColumn<Bill, LocalDate> endDateColumn; // Value injected by FXMLLoader
+
+    @FXML // fx:id="totalColumn"
+    private TableColumn<Bill, Double> totalColumn; // Value injected by FXMLLoader
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -45,6 +71,10 @@ public class Controller implements Initializable {
 
     private void setUpPersonTable() {
 
+        /*Cell Value Factories*/
+        // The cell value factories tell the table which part of the person
+        // to put in that column
+        
 
 
     }
