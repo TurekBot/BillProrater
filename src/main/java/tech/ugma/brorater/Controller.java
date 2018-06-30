@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import tech.ugma.brorater.model.Bill;
-import tech.ugma.brorater.model.Calculation;
+import tech.ugma.brorater.model.Range;
 import tech.ugma.brorater.model.Person;
 import tech.ugma.brorater.warehouse.Warehouse;
 
@@ -86,19 +86,55 @@ public class Controller implements Initializable {
     }
 
 
-    private Dialog<Calculation> setUpCalculateDialog() {
+    private Dialog<Range> setUpCalculateDialog() {
+        Dialog<Range> dialog = new Dialog<>();
 
-        return null;
+
+        Label label = new Label("Please specify a date range for which to calculate the Broration (Bill Proration).\n" +
+                "This is probably the duration of a whole month—at least that's what normal landlords do.");
+
+
+        DatePicker startDatePicker = new DatePicker();
+        startDatePicker.setPromptText("Start Date");
+
+        DatePicker endDatePicker = new DatePicker();
+        endDatePicker.setPromptText("End Date");
+
+        VBox vBox = new VBox(label, startDatePicker, endDatePicker);
+        vBox.setSpacing(10);
+
+
+        dialog.getDialogPane().setContent(vBox);
+
+        dialog.setResultConverter(buttonType -> {
+
+            if (ButtonType.OK.equals(buttonType)) {
+                // Make and return a range
+                Range range = new Range();
+                range.setStartDate(startDatePicker.getValue());
+                range.setEndDate(endDatePicker.getValue());
+                return range;
+            }
+
+            return null;
+        });
+
+        dialog.getDialogPane().getButtonTypes().addAll(
+                ButtonType.OK,
+                ButtonType.CANCEL
+        );
+        // Return the dialog
+        return dialog;
     }
 
     private void setUpCalculateButton() {
-        Dialog<Calculation> newCalculateDialog = setUpCalculateDialog();
+        Dialog<Range> newCalculateDialog = setUpCalculateDialog();
 
         newCalculateButton.setOnAction(event -> {
-            Optional<Calculation> result = newCalculateDialog.showAndWait();
+            Optional<Range> result = newCalculateDialog.showAndWait();
 
-            result.ifPresent(Calculation -> {
-
+            result.ifPresent(range -> {
+                calculateBroration(range);
             });
         });
         /*
@@ -108,7 +144,23 @@ public class Controller implements Initializable {
         }*/
     }
 
+    private void calculateBroration(Range range) {
+        // Start at the beginning of the range and go all the way to the end of the range
 
+        // On each day,
+
+        // Check which bills fall within that day
+
+        // Put them in a list
+
+        // Check which people are still in the house
+
+        // Put them in a list
+
+        // Take the total amount for utilities and divide it by the number of people
+
+        // Add that number to each of the person's amount due
+    }
 
 
     private void setUpMenu() {
@@ -152,7 +204,7 @@ public class Controller implements Initializable {
             fileChooser.getExtensionFilters().add(filter);
 
             // Passing in the primaryStage makes it so that any input to the rest
-            // of the windows is blocked: the user can only interact with the FileChoose
+            // of the windows is blocked: the user can only interact with the FileChooser
             File file = fileChooser.showOpenDialog(primaryStage);
 
             Warehouse.loadDataFromFile(file, personTable, billTable);
