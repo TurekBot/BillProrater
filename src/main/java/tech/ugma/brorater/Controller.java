@@ -166,8 +166,8 @@ public class Controller implements Initializable {
                 // Make and return a person
                 Person person = new Person();
                 person.setName(nameTextField.getText());
-                person.setStartDate(moveInDatePicker.getValue());
-                person.setEndDate(moveInDatePicker.getValue());
+                person.setMoveInDate(moveInDatePicker.getValue());
+                person.setMoveOutDate(moveInDatePicker.getValue());
                 return person;
             }
 
