@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import tech.ugma.brorater.model.Bill;
 import tech.ugma.brorater.model.Person;
 
@@ -55,6 +56,11 @@ public class Controller implements Initializable {
     private TableColumn<Bill, Double> totalColumn; // Value injected by FXMLLoader
 
     private FileChooser fileChooser = new FileChooser();
+
+    /**
+     * This is the main window.
+     */
+    private Stage primaryStage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -238,5 +244,13 @@ public class Controller implements Initializable {
 
         // Return the dialog
         return dialog;
+    }
+
+    void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
+
+    Stage getPrimaryStage() {
+        return primaryStage;
     }
 }

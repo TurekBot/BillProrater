@@ -10,7 +10,10 @@ public class Brorater extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Parent root = FXMLLoader.load(Brorater.class.getResource("/MainLayout.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/MainLayout.fxml"));
+        Parent root = fxmlLoader.load();
+        Controller controller = fxmlLoader.getController();
+        controller.setPrimaryStage(primaryStage);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
 
