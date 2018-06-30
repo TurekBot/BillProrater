@@ -123,6 +123,7 @@ public class Controller implements Initializable {
             fileChooser.getExtensionFilters().clear();
             fileChooser.getExtensionFilters().add(filter);
 
+
             // Passing in the primaryStage makes it so that any input to the rest
             // of the windows is blocked: the user can only interact with the FileChoose
             File saveFile = fileChooser.showSaveDialog(primaryStage);
@@ -131,8 +132,12 @@ public class Controller implements Initializable {
         });
 
         exportMenuButton.setOnAction(event -> {
+            fileChooser.getExtensionFilters().clear();
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PDF ", "*.pdf"));
             fileChooser.setTitle("Export Location");
-            fileChooser.showSaveDialog(primaryStage);
+            File saveFile = fileChooser.showSaveDialog(primaryStage);
+            FirstPdf.generate(saveFile);
+
         });
 
 
@@ -154,23 +159,6 @@ public class Controller implements Initializable {
 
         });
 
-        openMenuItem.setOnAction(event -> {
-            fileChooser.setTitle("Choose an XML file containing Person and Bill data");
-
-            // This only allows the user to select "*.xml" files
-            FileChooser.ExtensionFilter filter =
-                    new FileChooser.ExtensionFilter("XML files", "*.xml");
-
-            fileChooser.getExtensionFilters().clear();
-            fileChooser.getExtensionFilters().add(filter);
-
-            // Passing in the primaryStage makes it so that any input to the rest
-            // of the windows is blocked: the user can only interact with the FileChoose
-            File file = fileChooser.showOpenDialog(primaryStage);
-
-            Warehouse.loadDataFromFile(file, personTable, billTable);
-
-        });
 
     }
 
