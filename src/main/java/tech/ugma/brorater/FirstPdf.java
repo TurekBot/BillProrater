@@ -1,4 +1,6 @@
+package tech.ugma.brorater;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
 
@@ -20,8 +22,8 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 
-public class FirstPdf {
-    private static String FILE = "c:/temp/FirstPdf.pdf";
+class FirstPdf {
+    private static String FILE = null;
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
     private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
@@ -31,29 +33,14 @@ public class FirstPdf {
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
             Font.BOLD);
 
-    public static void main(String[] args) {
-        try {
-            Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(FILE));
-            document.open();
-            addMetaData(document);
-            addTitlePage(document);
-            addContent(document);
-            document.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     // iText allows to add metadata to the PDF which can be viewed in your Adobe
     // Reader
     // under File -> Properties
     private static void addMetaData(Document document) {
-        document.addTitle("My first PDF");
-        document.addSubject("Using iText");
-        document.addKeywords("Java, PDF, iText");
-        document.addAuthor("Lars Vogel");
-        document.addCreator("Lars Vogel");
+        document.addTitle("Brorated Document");
+        document.addSubject("brorater document");
+        document.addKeywords("Java, PDF, iText, brorater");
     }
 
     private static void addTitlePage(Document document)
@@ -176,5 +163,21 @@ public class FirstPdf {
         for (int i = 0; i < number; i++) {
             paragraph.add(new Paragraph(" "));
         }
+    }
+
+    static void generate(File folder) {
+        try {
+            FILE = folder.getPath();
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(FILE));
+            document.open();
+            addMetaData(document);
+            addTitlePage(document);
+            addContent(document);
+            document.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
