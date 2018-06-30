@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import tech.ugma.brorater.model.Bill;
 import tech.ugma.brorater.model.Person;
 
+import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -80,8 +81,11 @@ public class Controller implements Initializable {
     private void setUpMenu() {
 
         exportMenuButton.setOnAction(event -> {
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PDF ", "*.pdf"));
             fileChooser.setTitle("Export Location");
-            fileChooser.showOpenDialog(null);
+            File saveFile = fileChooser.showSaveDialog(primaryStage);
+            FirstPdf.generate(saveFile);
+
         });
 
 
