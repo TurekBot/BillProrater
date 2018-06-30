@@ -6,8 +6,8 @@ import java.time.LocalDate;
 
 public class Person {
     private StringProperty name = new SimpleStringProperty();
-    private ObjectProperty<LocalDate> startDate = new SimpleObjectProperty<>();
-    private ObjectProperty<LocalDate> endDate = new SimpleObjectProperty<>();
+    private ObjectProperty<LocalDate> moveInDate = new SimpleObjectProperty<>();
+    private ObjectProperty<LocalDate> moveOutDate = new SimpleObjectProperty<>();
     private DoubleProperty balanceDue = new SimpleDoubleProperty();
 
     ///////////////////////////////////////////////////////////////////////////
@@ -27,28 +27,28 @@ public class Person {
         this.name.set(name);
     }
 
-    public LocalDate getStartDate() {
-        return startDate.get();
+    public LocalDate getMoveInDate() {
+        return moveInDate.get();
     }
 
-    public ObjectProperty<LocalDate> startDateProperty() {
-        return startDate;
+    public ObjectProperty<LocalDate> moveInDateProperty() {
+        return moveInDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate.set(startDate);
+    public void setMoveInDate(LocalDate moveInDate) {
+        this.moveInDate.set(moveInDate);
     }
 
-    public LocalDate getEndDate() {
-        return endDate.get();
+    public LocalDate getMoveOutDate() {
+        return moveOutDate.get();
     }
 
-    public ObjectProperty<LocalDate> endDateProperty() {
-        return endDate;
+    public ObjectProperty<LocalDate> moveOutDateProperty() {
+        return moveOutDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate.set(endDate);
+    public void setMoveOutDate(LocalDate moveOutDate) {
+        this.moveOutDate.set(moveOutDate);
     }
 
     public double getBalanceDue() {
