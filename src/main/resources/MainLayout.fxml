@@ -10,8 +10,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:controller="tech.ugma.brorater.Controller" prefHeight="400.0" prefWidth="640.0"
-      xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="tech.ugma.brorater.Controller">
     <MenuBar VBox.vgrow="NEVER">
         <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" text="New"/>
@@ -45,22 +45,24 @@
     </MenuBar>
     <AnchorPane VBox.vgrow="ALWAYS">
         <VBox layoutX="22.0" layoutY="48.0" prefHeight="533.0" prefWidth="538.0" spacing="10.0">
-            <Button mnemonicParsing="false" text="New Person"/>
+            <Button fx:id="newPersonButton" mnemonicParsing="false" text="New Person"/>
             <TableView prefHeight="290.0" prefWidth="115.0">
                 <columns>
-                    <TableColumn prefWidth="140.0" text="Name"/>
-                    <TableColumn prefWidth="110.39996337890625" text="Move-In Date"/>
-                    <TableColumn prefWidth="110.39996337890625" text="Move-Out Date"/>
-                    <TableColumn prefWidth="75.0" text="Balance Due"/>
+                    <TableColumn fx:id="personNameColumn" prefWidth="140.0" text="Name"/>
+                    <TableColumn fx:id="moveInDateColumn" prefWidth="110.39996337890625"
+                                 text="Move-In Date"/>
+                    <TableColumn fx:id="moveoutDateColumn" prefWidth="110.39996337890625"
+                                 text="Move-Out Date"/>
+                    <TableColumn fx:id="balanceDueColumn" prefWidth="75.0" text="Balance Due"/>
                 </columns>
             </TableView>
             <Button mnemonicParsing="false" text="New Bill"/>
             <TableView prefHeight="318.0" prefWidth="200.0">
                 <columns>
-                    <TableColumn prefWidth="150.0" text="Bill"/>
-                    <TableColumn prefWidth="100.0" text="Start Date"/>
-                    <TableColumn prefWidth="100.0" text="End Date"/>
-                    <TableColumn prefWidth="75.0" text="Total"/>
+                    <TableColumn fx:id="billNameColumn" prefWidth="150.0" text="Bill"/>
+                    <TableColumn fx:id="startDateColumn" prefWidth="100.0" text="Start Date"/>
+                    <TableColumn fx:id="endDateColumn" prefWidth="100.0" text="End Date"/>
+                    <TableColumn fx:id="totalColumn" prefWidth="75.0" text="Total"/>
                 </columns>
             </TableView>
         </VBox>

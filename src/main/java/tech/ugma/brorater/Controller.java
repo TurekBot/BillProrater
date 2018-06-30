@@ -45,6 +45,8 @@ public class Controller implements Initializable {
 
     private void setUpPersonTable() {
 
+
+
     }
 
     private void setUpNewBillButton() {
@@ -54,19 +56,16 @@ public class Controller implements Initializable {
     private void setUpNewPersonButton() {
         Dialog<Person> newPersonDialog = setUpNewPersonDialog();
 
-        newPersonButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                newPersonDialog.showAndWait();
-                Optional<Person> result = newPersonDialog.showAndWait();
+        newPersonButton.setOnAction(event -> {
+            newPersonDialog.showAndWait();
+            Optional<Person> result = newPersonDialog.showAndWait();
 
-                result.ifPresent(person -> {
-                    // Add person to person list
+            result.ifPresent(person -> {
+                // Add person to person list
 
-                    // Persist person to storage
+                // Persist person to storage
 
-                });
-            }
+            });
         });
 
     }
