@@ -74,7 +74,22 @@ public class Controller implements Initializable {
         /*Cell Value Factories*/
         // The cell value factories tell the table which part of the person
         // to put in that column
-        
+        personNameColumn.setCellValueFactory(cellData ->
+                cellData.getValue().nameProperty()
+        );
+        moveInDateColumn.setCellValueFactory(cellData ->
+                cellData.getValue().moveInDateProperty()
+        );
+        moveoutDateColumn.setCellValueFactory(cellData ->
+                cellData.getValue().moveOutDateProperty()
+        );
+        balanceDueColumn.setCellValueFactory(cellData ->
+                cellData.getValue().balanceDueProperty().asObject()
+        );
+
+        /*Cell Factories*/
+        // The cell factories tell the table how each cell in a given column
+        // should look
 
 
     }
