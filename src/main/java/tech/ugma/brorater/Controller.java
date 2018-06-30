@@ -15,6 +15,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
+    @FXML
+    private MenuItem exportMenuButton;
 
     @FXML
     private MenuItem openMenuItem;
@@ -76,6 +78,13 @@ public class Controller implements Initializable {
     }
 
     private void setUpMenu() {
+
+        exportMenuButton.setOnAction(event -> {
+            fileChooser.setTitle("Export Location");
+            fileChooser.showOpenDialog(null);
+        });
+
+
         openMenuItem.setOnAction(event -> {
             fileChooser.setTitle("Choose a file ");
             fileChooser.showOpenDialog(null);
@@ -139,7 +148,7 @@ public class Controller implements Initializable {
 
             result.ifPresent(bill -> {
                 // Add bill to bill list
-
+                billTable.getItems().add(bill);
                 // Persist bill to storage
 
             });
@@ -239,7 +248,6 @@ public class Controller implements Initializable {
             } else
                 return null;
         });
-
 
 
         // Return the dialog
