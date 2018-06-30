@@ -81,13 +81,13 @@ public class Controller implements Initializable {
 
         exportMenuButton.setOnAction(event -> {
             fileChooser.setTitle("Export Location");
-            fileChooser.showOpenDialog(null);
+            fileChooser.showOpenDialog(primaryStage);
         });
 
 
         openMenuItem.setOnAction(event -> {
             fileChooser.setTitle("Choose a file ");
-            fileChooser.showOpenDialog(null);
+            fileChooser.showOpenDialog(primaryStage);
         });
     }
 
