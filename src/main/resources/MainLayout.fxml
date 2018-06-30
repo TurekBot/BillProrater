@@ -20,6 +20,8 @@
             <MenuItem mnemonicParsing="false" text="Save" />
             <MenuItem mnemonicParsing="false" text="Save As…" />
             <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="exportMenuButton" mnemonicParsing="false" text="Export as PDF" />
+            <SeparatorMenuItem mnemonicParsing="false" />
             <!--<MenuItem mnemonicParsing="false" text="Preferences…" />-->
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Quit" />
@@ -27,17 +29,17 @@
         <Menu mnemonicParsing="false" text="Edit">
             <MenuItem mnemonicParsing="false" text="Undo" />
             <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-           <!-- <MenuItem mnemonicParsing="false" text="Cut" />-->
-           <!-- <MenuItem mnemonicParsing="false" text="Copy" />-->
-           <!-- <MenuItem mnemonicParsing="false" text="Paste" />-->
-           <!-- <MenuItem mnemonicParsing="false" text="Delete" />-->
+<!--            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Cut" />
+            <MenuItem mnemonicParsing="false" text="Copy" />
+            <MenuItem mnemonicParsing="false" text="Paste" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
+            <MenuItem mnemonicParsing="false" text="Unselect All" />-->
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+            <MenuItem mnemonicParsing="false" text="About Brorater" />
         </Menu>
     </MenuBar>
     <AnchorPane VBox.vgrow="ALWAYS">

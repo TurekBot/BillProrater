@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 import tech.ugma.brorater.model.Bill;
 import tech.ugma.brorater.model.Person;
 
@@ -13,6 +15,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
+    @FXML
+    private MenuItem exportMenuButton;
 
     @FXML // fx:id="newPersonButton"
     private Button newPersonButton; // Value injected by FXMLLoader
@@ -50,6 +54,7 @@ public class Controller implements Initializable {
     @FXML // fx:id="totalColumn"
     private TableColumn<Bill, Double> totalColumn; // Value injected by FXMLLoader
 
+    private FileChooser fileChooser = new FileChooser();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("I'm here!");
@@ -59,6 +64,18 @@ public class Controller implements Initializable {
 
         setUpNewBillButton();
         setUpBillTable();
+
+        setUpMenu();
+    }
+
+
+    private void setUpMenu() {
+        exportMenuButton.setOnAction(event -> {
+            fileChooser.setTitle("Export Location");
+            fileChooser.showOpenDialog(null);
+
+
+        });
     }
 
     private void setUpBillTable() {
