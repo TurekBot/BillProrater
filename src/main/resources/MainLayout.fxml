@@ -64,6 +64,6 @@
                 </columns>
             </TableView>
         </VBox>
-        <Button layoutX="424.0" layoutY="5.0" mnemonicParsing="false" text="Calculate Bill&#10; Breakdown"/>
+        <Button fx:id="newCalculateButton" layoutX="424.0" layoutY="5.0" mnemonicParsing="false" text="Calculate Bill&#10; Breakdown"/>
     </AnchorPane>
 </VBox>

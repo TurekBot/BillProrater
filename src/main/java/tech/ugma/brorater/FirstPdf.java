@@ -38,9 +38,9 @@ class FirstPdf {
     // Reader
     // under File -> Properties
     private static void addMetaData(Document document) {
-        document.addTitle("Brorater for");
-        document.addSubject("Using iText");
-        document.addKeywords("Java, PDF, iText");
+        document.addTitle("Brorated Document");
+        document.addSubject("brorater document");
+        document.addKeywords("Java, PDF, iText, brorater");
     }
 
     private static void addTitlePage(Document document)
