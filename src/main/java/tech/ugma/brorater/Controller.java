@@ -114,7 +114,6 @@ public class Controller implements Initializable {
         Dialog<Bill> newBillDialog = setUpNewBillDialog();
 
         newBillButton.setOnAction(event -> {
-            newBillDialog.showAndWait();
             Optional<Bill> result = newBillDialog.showAndWait();
 
             result.ifPresent(bill -> {
@@ -131,7 +130,6 @@ public class Controller implements Initializable {
         Dialog<Person> newPersonDialog = setUpNewPersonDialog();
 
         newPersonButton.setOnAction(event -> {
-            newPersonDialog.showAndWait();
             Optional<Person> result = newPersonDialog.showAndWait();
 
             result.ifPresent(person -> {
@@ -153,13 +151,27 @@ public class Controller implements Initializable {
     private Dialog<Bill> setUpNewBillDialog() {
 
         Dialog<Bill> dialog = new Dialog<>();
-        VBox vBox = new VBox();
         TextField nameTF = new TextField();
+        nameTF.setPromptText("Bill Name");
+
         DatePicker startDatePicker = new DatePicker();
+        startDatePicker.setPromptText("Start Date");
+
         DatePicker endDatePicker = new DatePicker();
+        endDatePicker.setPromptText("End Date");
+
         TextField totalTF = new TextField();
+        totalTF.setPromptText("Total");
+
+        VBox vBox = new VBox(nameTF, startDatePicker, endDatePicker, totalTF);
+        vBox.setSpacing(10);
 
         dialog.getDialogPane().setContent(vBox);
+
+        dialog.getDialogPane().getButtonTypes().addAll(
+                ButtonType.OK,
+                ButtonType.CANCEL
+        );
 
         dialog.setResultConverter(param -> {
             if (ButtonType.OK.equals(param)) {
@@ -172,6 +184,8 @@ public class Controller implements Initializable {
             } else
                 return null;
         });
+
+
 
         // Return the dialog
         return dialog;
