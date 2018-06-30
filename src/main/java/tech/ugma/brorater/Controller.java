@@ -134,7 +134,7 @@ public class Controller implements Initializable {
 
             result.ifPresent(person -> {
                 // Add person to person list
-
+                personTable.getItems().add(person);
                 // Persist person to storage
 
             });
@@ -167,7 +167,7 @@ public class Controller implements Initializable {
                 Person person = new Person();
                 person.setName(nameTextField.getText());
                 person.setMoveInDate(moveInDatePicker.getValue());
-                person.setMoveOutDate(moveInDatePicker.getValue());
+                person.setMoveOutDate(moveOutDatePicker.getValue());
                 return person;
             }
 
