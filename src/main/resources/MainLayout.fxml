@@ -14,7 +14,7 @@
     <MenuBar VBox.vgrow="NEVER">
         <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
+            <MenuItem fx:id="openMenuItem" mnemonicParsing="false" text="Open…" />
             <Menu mnemonicParsing="false" text="Open Recent" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Close" />

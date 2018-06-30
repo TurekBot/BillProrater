@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Bradley Turek
  */
 @XmlRootElement(name = "storage")
-public class Container {
+public class StorageContainer {
 
     private List<Person> persons;
     private List<Bill> bills;
