@@ -91,7 +91,7 @@ public class Controller implements Initializable {
 
         openMenuItem.setOnAction(event -> {
             fileChooser.setTitle("Choose a file ");
-            fileChooser.showOpenDialog(null);
+            fileChooser.showOpenDialog(primaryStage);
         });
     }
 
