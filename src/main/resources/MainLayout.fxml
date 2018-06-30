@@ -17,7 +17,7 @@
             <MenuItem fx:id="openMenuItem" mnemonicParsing="false" text="Open…" />
             <Menu mnemonicParsing="false" text="Open Recent" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Save" />
+            <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" text="Save" />
             <MenuItem mnemonicParsing="false" text="Save As…" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="exportMenuButton" mnemonicParsing="false" text="Export as PDF" />

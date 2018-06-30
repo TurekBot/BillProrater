@@ -1,4 +1,4 @@
-package tech.ugma.brorater;
+package tech.ugma.brorater.warehouse;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -18,7 +18,6 @@ public class Warehouse {
      * Loads data from the specified file. The current data will
      * be replaced.
      *
-     * @param file
      */
     public static void loadDataFromFile(File file, TableView<Person> personTable, TableView<Bill> billTable) {
         try {

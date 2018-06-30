@@ -8,13 +8,18 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import tech.ugma.brorater.model.Bill;
 import tech.ugma.brorater.model.Person;
+import tech.ugma.brorater.warehouse.Warehouse;
 
+import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
+    @FXML
+    private MenuItem saveMenuItem;
+
     @FXML
     private MenuItem exportMenuButton;
 
@@ -79,15 +84,63 @@ public class Controller implements Initializable {
 
     private void setUpMenu() {
 
+        saveMenuItem.setOnAction(event -> {
+            fileChooser.setTitle("Save Brorate project");
+
+            // This only allows the user to select "*.xml" files
+            FileChooser.ExtensionFilter filter =
+                    new FileChooser.ExtensionFilter("XML files", "*.xml");
+
+            fileChooser.getExtensionFilters().clear();
+            fileChooser.getExtensionFilters().add(filter);
+
+            // Passing in the primaryStage makes it so that any input to the rest
+            // of the windows is blocked: the user can only interact with the FileChoose
+            File saveFile = fileChooser.showSaveDialog(primaryStage);
+
+            Warehouse.savePersonDataToFile(saveFile, personTable, billTable);
+        });
+
         exportMenuButton.setOnAction(event -> {
             fileChooser.setTitle("Export Location");
-            fileChooser.showOpenDialog(primaryStage);
+            fileChooser.showSaveDialog(primaryStage);
         });
 
 
         openMenuItem.setOnAction(event -> {
-            fileChooser.setTitle("Choose a file ");
-            fileChooser.showOpenDialog(primaryStage);
+            fileChooser.setTitle("Choose an XML file containing Person and Bill data");
+
+            // This only allows the user to select "*.xml" files
+            FileChooser.ExtensionFilter filter =
+                    new FileChooser.ExtensionFilter("XML files", "*.xml");
+
+            fileChooser.getExtensionFilters().clear();
+            fileChooser.getExtensionFilters().add(filter);
+
+            // Passing in the primaryStage makes it so that any input to the rest
+            // of the windows is blocked: the user can only interact with the FileChoose
+            File file = fileChooser.showOpenDialog(primaryStage);
+
+            Warehouse.loadDataFromFile(file, personTable, billTable);
+
+        });
+
+        openMenuItem.setOnAction(event -> {
+            fileChooser.setTitle("Choose an XML file containing Person and Bill data");
+
+            // This only allows the user to select "*.xml" files
+            FileChooser.ExtensionFilter filter =
+                    new FileChooser.ExtensionFilter("XML files", "*.xml");
+
+            fileChooser.getExtensionFilters().clear();
+            fileChooser.getExtensionFilters().add(filter);
+
+            // Passing in the primaryStage makes it so that any input to the rest
+            // of the windows is blocked: the user can only interact with the FileChoose
+            File file = fileChooser.showOpenDialog(primaryStage);
+
+            Warehouse.loadDataFromFile(file, personTable, billTable);
+
         });
     }
 
