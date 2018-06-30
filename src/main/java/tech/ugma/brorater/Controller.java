@@ -1,13 +1,9 @@
 package tech.ugma.brorater;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import tech.ugma.brorater.model.Bill;
 import tech.ugma.brorater.model.Person;
 
@@ -115,6 +111,19 @@ public class Controller implements Initializable {
     }
 
     private void setUpNewBillButton() {
+        Dialog<Bill> newBillDialog = setUpNewBillDialog();
+
+        newBillButton.setOnAction(event -> {
+            newBillDialog.showAndWait();
+            Optional<Bill> result = newBillDialog.showAndWait();
+
+            result.ifPresent(bill -> {
+                // Add bill to bill list
+
+                // Persist bill to storage
+
+            });
+        });
 
     }
 
@@ -139,5 +148,32 @@ public class Controller implements Initializable {
 
         // Return the dialog
         return null;
+    }
+
+    private Dialog<Bill> setUpNewBillDialog() {
+
+        Dialog<Bill> dialog = new Dialog<>();
+        VBox vBox = new VBox();
+        TextField nameTF = new TextField();
+        DatePicker startDatePicker = new DatePicker();
+        DatePicker endDatePicker = new DatePicker();
+        TextField totalTF = new TextField();
+
+        dialog.getDialogPane().setContent(vBox);
+
+        dialog.setResultConverter(param -> {
+            if (ButtonType.OK.equals(param)) {
+                Bill bill = new Bill();
+                bill.setName(nameTF.getText().trim());
+                bill.setStartDate(startDatePicker.getValue());
+                bill.setEndDate(endDatePicker.getValue());
+                bill.setTotal(Double.parseDouble(totalTF.getText().trim()));
+                return bill;
+            } else
+                return null;
+        });
+
+        // Return the dialog
+        return dialog;
     }
 }
