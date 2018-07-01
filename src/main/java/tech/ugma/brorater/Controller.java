@@ -1,5 +1,6 @@
 package tech.ugma.brorater;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -12,8 +13,12 @@ import tech.ugma.brorater.model.Person;
 import tech.ugma.brorater.warehouse.Warehouse;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -62,7 +67,7 @@ public class Controller implements Initializable {
     private TableColumn<Bill, LocalDate> endDateColumn; // Value injected by FXMLLoader
 
     @FXML // fx:id="totalColumn"
-    private TableColumn<Bill, Double> totalColumn; // Value injected by FXMLLoader
+    private TableColumn<Bill, BigDecimal> totalColumn; // Value injected by FXMLLoader
 
     private FileChooser fileChooser = new FileChooser();
 
@@ -133,9 +138,8 @@ public class Controller implements Initializable {
         newCalculateButton.setOnAction(event -> {
             Optional<Range> result = newCalculateDialog.showAndWait();
 
-            result.ifPresent(range -> {
-                calculateBroration(range);
-            });
+            result.ifPresent(range ->
+                    calculateBroration(range, personTable.getItems(), billTable.getItems()));
         });
         /*
         personTable.getItems().size();
@@ -144,22 +148,46 @@ public class Controller implements Initializable {
         }*/
     }
 
-    private void calculateBroration(Range range) {
+    private void calculateBroration(Range range, ObservableList<Person> people, ObservableList<Bill> bills) {
         // Start at the beginning of the range and go all the way to the end of the range
+        LocalDate current = LocalDate.parse(range.getStartDate().toString());
+        List<Person> inHouse = new ArrayList<>();
+        while (current.isBefore(range.getEndDate().plusDays(1))) {
+            inHouse.clear();
+            BigDecimal costOfUtilitiesPerPersonForToday = BigDecimal.valueOf(0.00);
 
-        // On each day,
+            // On each day,
+            // Check which people are still in the house
+            for (Person person : people) {
+                if ((current.isEqual(person.getMoveInDate()) || current.isAfter(person.getMoveInDate())) &&
+                        (current.isEqual(person.getMoveOutDate()) || current.isBefore(person.getMoveOutDate()))) {
+                    // Put them in a list
+                    inHouse.add(person);
+                }
+            }
 
-        // Check which bills fall within that day
 
-        // Put them in a list
+            // Check which bills fall within the day
+            for (Bill bill : bills) {
+                if ((bill.getStartDate().isEqual(current) || bill.getStartDate().isBefore(current))
+                        && (bill.getEndDate().isEqual(current) || bill.getEndDate().isAfter(current))) {
+                    // Get the bills cost per day and divide it by the number of people
+                    BigDecimal costPerPersonPerDay =
+                            bill.getCostPerDay().divide(BigDecimal.valueOf(inHouse.size()), RoundingMode.HALF_UP);
 
-        // Check which people are still in the house
+                    costOfUtilitiesPerPersonForToday = costOfUtilitiesPerPersonForToday.add(costPerPersonPerDay);
+                }
+            }
 
-        // Put them in a list
-
-        // Take the total amount for utilities and divide it by the number of people
 
         // Add that number to each of the person's amount due
+            BigDecimal finalCostOfUtilitiesPerPersonForToday = costOfUtilitiesPerPersonForToday;
+            inHouse.forEach(person -> person.setBalanceDue(person.getBalanceDue() + finalCostOfUtilitiesPerPersonForToday.doubleValue()));
+
+
+            // Go to the next day
+            current = current.plusDays(1);
+        }
     }
 
 
@@ -229,7 +257,7 @@ public class Controller implements Initializable {
                 cellData.getValue().endDateProperty()
         );
         totalColumn.setCellValueFactory(cellData ->
-                cellData.getValue().totalProperty().asObject()
+                cellData.getValue().totalProperty()
         );
 
         /*Cell Factories*/

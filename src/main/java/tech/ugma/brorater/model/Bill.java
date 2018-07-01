@@ -1,14 +1,36 @@
 package tech.ugma.brorater.model;
 
-import javafx.beans.property.*;
+import javafx.beans.binding.ObjectBinding;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Bill {
     private StringProperty name = new SimpleStringProperty();
     private ObjectProperty<LocalDate> startDate = new SimpleObjectProperty<>();
     private ObjectProperty<LocalDate> endDate = new SimpleObjectProperty<>();
-    private DoubleProperty total = new SimpleDoubleProperty();
+    private ObjectProperty<BigDecimal> total = new SimpleObjectProperty<>();
+    private ObjectBinding<BigDecimal> costPerDay = new ObjectBinding<BigDecimal>() {
+        @Override
+        protected BigDecimal computeValue() {
+            long days = DAYS.between(startDate.getValue(), endDate.getValue());
+            return total.getValue().divide(BigDecimal.valueOf(days), 2, RoundingMode.HALF_UP);
+        }
+
+        @Override
+        public ObservableList<?> getDependencies() {
+            return FXCollections.observableArrayList(startDate, endDate, total);
+        }
+    };
 
     ///////////////////////////////////////////////////////////////////////////
     // Getters and Setters
@@ -51,15 +73,26 @@ public class Bill {
         this.endDate.set(endDate);
     }
 
-    public double getTotal() {
+    public BigDecimal getTotal() {
         return total.get();
     }
 
-    public DoubleProperty totalProperty() {
+    public ObjectProperty<BigDecimal> totalProperty() {
         return total;
     }
 
-    public void setTotal(double total) {
+    public void setTotal(BigDecimal total) {
         this.total.set(total);
+    }
+    public void setTotal(double total) {
+        this.total.set(BigDecimal.valueOf(total));
+    }
+
+    public BigDecimal getCostPerDay() {
+        return costPerDay.get();
+    }
+
+    public ObjectBinding<BigDecimal> costPerDayProperty() {
+        return costPerDay;
     }
 }
