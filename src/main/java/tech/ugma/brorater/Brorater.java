@@ -1,6 +1,7 @@
 package tech.ugma.brorater;
 
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,8 +10,12 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Brorater extends Application {
+    public static HostServices hostServices;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+        hostServices = getHostServices();
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/MainLayout.fxml"));
         Parent root = fxmlLoader.load();

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+
+<StackPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="tech.ugma.brorater.about.AboutController">
+    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+          prefWidth="600.0" spacing="20.0">
+        <VBox>
+            <HBox alignment="CENTER_LEFT">
+                <Text text="This icon was brought to you by"/>
+                <Hyperlink contentDisplay="GRAPHIC_ONLY" onAction="#linkToIcons8" text="Icons8">
+                    <graphic>
+                        <ImageView pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../images/Icons8 Logo.PNG"/>
+                        </ImageView>
+                    </graphic>
+                </Hyperlink>
+                <Text layoutX="10.0" layoutY="45.0" text=":"/>
+            </HBox>
+            <HBox alignment="CENTER">
+                <ImageView pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../images/app-icons/icons8-rent-64.png"/>
+                </ImageView>
+            </HBox>
+        </VBox>
+        <VBox>
+            <HBox alignment="CENTER_LEFT">
+                <Text text="These icons were brought to you by"/>
+                <Hyperlink contentDisplay="GRAPHIC_ONLY" onAction="#linkToFontAwesome" text="FontAwesome">
+                    <graphic>
+                        <ImageView fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../images/Font Awesome Logo.png"/>
+                        </ImageView>
+                    </graphic>
+                </Hyperlink>
+                <Text text=" and "/>
+                <Hyperlink onAction="#linkToFontAwesomeFX" text="FontAwesomeFX"/>
+                <Text layoutX="10.0" layoutY="33.0" text=":"/>
+            </HBox>
+            <HBox alignment="CENTER" spacing="30.0">
+                <VBox.margin>
+                    <Insets top="10.0"/>
+                </VBox.margin>
+                <FontAwesomeIconView glyphName="FOLDER_OPEN_ALT" size="24"/>
+                <FontAwesomeIconView glyphName="SAVE" size="24"/>
+                <FontAwesomeIconView glyphName="HAND_PEACE_ALT" size="24"/>
+            </HBox>
+        </VBox>
+        <VBox layoutX="10.0" layoutY="153.0">
+            <HBox alignment="CENTER_LEFT">
+                <Text text="The material design was brought to you by "/>
+                <Hyperlink contentDisplay="GRAPHIC_ONLY" onAction="#linkToJFoenix" text="JFoenix">
+                    <graphic>
+                        <ImageView fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="http://www.jfoenix.com/assets/img/logo-JFX.png"/>
+                        </ImageView>
+                    </graphic>
+                </Hyperlink>
+                <Text text=" and "/>
+                <Hyperlink contentDisplay="GRAPHIC_ONLY" layoutX="240.0" layoutY="10.0"
+                           onAction="#linkToMaterialDesign" text="Material Design">
+                    <graphic>
+                        <ImageView fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../images/Material Design Logo.PNG"/>
+                        </ImageView>
+                    </graphic>
+                </Hyperlink>
+                <Text text="."/>
+            </HBox>
+        </VBox>
+        <StackPane.margin>
+          <Insets bottom="20.0" left="20.0" right="40.0" top="20.0"/>
+        </StackPane.margin>
+    </VBox>
+</StackPane>
