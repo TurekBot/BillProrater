@@ -8,14 +8,16 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import tech.ugma.brorater.model.Bill;
-import tech.ugma.brorater.model.Range;
 import tech.ugma.brorater.model.Person;
+import tech.ugma.brorater.model.Range;
 import tech.ugma.brorater.warehouse.Warehouse;
 
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +51,7 @@ public class Controller implements Initializable {
     private TableColumn<Person, LocalDate> moveoutDateColumn; // Value injected by FXMLLoader
 
     @FXML // fx:id="balanceDueColumn"
-    private TableColumn<Person, Double> balanceDueColumn; // Value injected by FXMLLoader
+    private TableColumn<Person, BigDecimal> balanceDueColumn; // Value injected by FXMLLoader
 
     @FXML // fx:id="newBillButton"
     private Button newBillButton; // Value injected by FXMLLoader
@@ -70,6 +72,8 @@ public class Controller implements Initializable {
     private TableColumn<Bill, BigDecimal> totalColumn; // Value injected by FXMLLoader
 
     private FileChooser fileChooser = new FileChooser();
+
+    private final NumberFormat moneyFormat = new DecimalFormat("$0.00");
 
     /**
      * This is the main window.
@@ -149,10 +153,15 @@ public class Controller implements Initializable {
     }
 
     private void calculateBroration(Range range, ObservableList<Person> people, ObservableList<Bill> bills) {
+        // Reset every person's balance due because we're doing a brand new calculation
+        people.forEach(person -> person.setBalanceDue(BigDecimal.ZERO));
+
+
         // Start at the beginning of the range and go all the way to the end of the range
         LocalDate current = LocalDate.parse(range.getStartDate().toString());
         List<Person> inHouse = new ArrayList<>();
         while (current.isBefore(range.getEndDate().plusDays(1))) {
+            System.out.println("Current day: " + current.toString());
             inHouse.clear();
             BigDecimal costOfUtilitiesPerPersonForToday = BigDecimal.valueOf(0.00);
 
@@ -165,28 +174,39 @@ public class Controller implements Initializable {
                     inHouse.add(person);
                 }
             }
+            System.out.println(inHouse.size() + " people in house today.");
 
 
             // Check which bills fall within the day
             for (Bill bill : bills) {
                 if ((bill.getStartDate().isEqual(current) || bill.getStartDate().isBefore(current))
                         && (bill.getEndDate().isEqual(current) || bill.getEndDate().isAfter(current))) {
+                    System.out.println(bill.getName() + " cost per day: " + bill.getCostPerDay());
                     // Get the bills cost per day and divide it by the number of people
                     BigDecimal costPerPersonPerDay =
-                            bill.getCostPerDay().divide(BigDecimal.valueOf(inHouse.size()), RoundingMode.HALF_UP);
+                            bill.getCostPerDay().divide(BigDecimal.valueOf(inHouse.size()), 10, RoundingMode.HALF_UP);
+                    System.out.println("Divided among " + inHouse.size() + " people: " + costPerPersonPerDay);
 
                     costOfUtilitiesPerPersonForToday = costOfUtilitiesPerPersonForToday.add(costPerPersonPerDay);
                 }
             }
 
 
-        // Add that number to each of the person's amount due
+            // Add that number to each of the person's amount due
             BigDecimal finalCostOfUtilitiesPerPersonForToday = costOfUtilitiesPerPersonForToday;
-            inHouse.forEach(person -> person.setBalanceDue(person.getBalanceDue() + finalCostOfUtilitiesPerPersonForToday.doubleValue()));
+            inHouse.forEach(person ->
+                    person.setBalanceDue(
+                            person.getBalanceDue().add(finalCostOfUtilitiesPerPersonForToday)));
 
 
             // Go to the next day
             current = current.plusDays(1);
+            System.out.println();
+        }
+
+        // At the end, round each balance due to 2 decimal places
+        for (Person person : people) {
+            person.setBalanceDue(person.getBalanceDue().setScale(2, RoundingMode.HALF_UP));
         }
     }
 
@@ -264,6 +284,18 @@ public class Controller implements Initializable {
         // The cell factories tell the table how each cell in a given column
         // should look
 
+        totalColumn.setCellFactory(tc -> new TableCell<Bill, BigDecimal>() {
+            @Override
+            protected void updateItem(BigDecimal value, boolean empty) {
+                super.updateItem(value, empty);
+                if (value == null || empty) {
+                    setText("");
+                } else {
+                    setText(moneyFormat.format(value));
+                }
+            }
+        });
+
     }
 
     private void setUpPersonTable() {
@@ -281,12 +313,23 @@ public class Controller implements Initializable {
                 cellData.getValue().moveOutDateProperty()
         );
         balanceDueColumn.setCellValueFactory(cellData ->
-                cellData.getValue().balanceDueProperty().asObject()
+                cellData.getValue().balanceDueProperty()
         );
 
         /*Cell Factories*/
         // The cell factories tell the table how each cell in a given column
         // should look
+        balanceDueColumn.setCellFactory(tc -> new TableCell<Person, BigDecimal>() {
+            @Override
+            protected void updateItem(BigDecimal value, boolean empty) {
+                super.updateItem(value, empty);
+                if (value == null || empty) {
+                    setText("");
+                } else {
+                    setText(moneyFormat.format(value));
+                }
+            }
+        });
 
 
     }

@@ -23,11 +23,15 @@ public class Bill {
         @Override
         protected BigDecimal computeValue() {
             long days = DAYS.between(startDate.getValue(), endDate.getValue());
-            return total.getValue().divide(BigDecimal.valueOf(days), 2, RoundingMode.HALF_UP);
+            // We add one day because the above function is not inclusive of the ending day (or the starting day, I didn't
+            // care to figure out which)
+            days++;
+            return total.getValue().divide(BigDecimal.valueOf(days), 10, RoundingMode.HALF_UP);
         }
 
         @Override
         public ObservableList<?> getDependencies() {
+            //noinspection unchecked
             return FXCollections.observableArrayList(startDate, endDate, total);
         }
     };

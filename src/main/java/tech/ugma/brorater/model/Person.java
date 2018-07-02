@@ -1,14 +1,19 @@
 package tech.ugma.brorater.model;
 
-import javafx.beans.property.*;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Person {
     private StringProperty name = new SimpleStringProperty();
     private ObjectProperty<LocalDate> moveInDate = new SimpleObjectProperty<>();
     private ObjectProperty<LocalDate> moveOutDate = new SimpleObjectProperty<>();
-    private DoubleProperty balanceDue = new SimpleDoubleProperty();
+    private ObjectProperty<BigDecimal> balanceDue = new SimpleObjectProperty<>();
+
 
     ///////////////////////////////////////////////////////////////////////////
     // Getters and Setters
@@ -51,15 +56,16 @@ public class Person {
         this.moveOutDate.set(moveOutDate);
     }
 
-    public double getBalanceDue() {
+    public BigDecimal getBalanceDue() {
         return balanceDue.get();
     }
 
-    public DoubleProperty balanceDueProperty() {
+    public ObjectProperty<BigDecimal> balanceDueProperty() {
         return balanceDue;
     }
 
-    public void setBalanceDue(double balanceDue) {
+    public void setBalanceDue(BigDecimal balanceDue) {
         this.balanceDue.set(balanceDue);
     }
+
 }
