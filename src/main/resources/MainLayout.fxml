@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="tech.ugma.brorater.Controller">
     <MenuBar VBox.vgrow="NEVER">
@@ -45,7 +38,7 @@
     </MenuBar>
     <AnchorPane VBox.vgrow="ALWAYS">
         <VBox layoutX="22.0" layoutY="48.0" prefHeight="533.0" prefWidth="538.0" spacing="10.0">
-            <Button fx:id="newPersonButton" mnemonicParsing="false" text="New Person"/>
+            <JFXButton fx:id="newPersonButton" mnemonicParsing="false" text="New Person"/>
             <TableView fx:id="personTable" prefHeight="290.0" prefWidth="115.0">
                 <columns>
                     <TableColumn fx:id="personNameColumn" prefWidth="140.0" text="Name"/>
@@ -54,7 +47,7 @@
                     <TableColumn fx:id="balanceDueColumn" prefWidth="75.0" text="Balance Due"/>
                 </columns>
             </TableView>
-            <Button fx:id="newBillButton" mnemonicParsing="false" text="New Bill"/>
+            <JFXButton fx:id="newBillButton" mnemonicParsing="false" text="New Bill"/>
             <TableView fx:id="billTable" prefHeight="318.0" prefWidth="200.0">
                 <columns>
                     <TableColumn fx:id="billNameColumn" prefWidth="150.0" text="Bill"/>
@@ -64,6 +57,6 @@
                 </columns>
             </TableView>
         </VBox>
-        <Button fx:id="newCalculateButton" layoutX="424.0" layoutY="5.0" mnemonicParsing="false" text="Calculate Bill&#10; Breakdown"/>
+        <JFXButton fx:id="newCalculateButton" layoutX="424.0" layoutY="5.0" mnemonicParsing="false" text="Calculate Bill&#10; Breakdown"/>
     </AnchorPane>
 </VBox>

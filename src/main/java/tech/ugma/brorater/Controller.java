@@ -1,5 +1,6 @@
 package tech.ugma.brorater;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.ObservableList;
@@ -30,7 +31,7 @@ public class Controller implements Initializable {
     @FXML
     private MenuItem saveMenuItem;
 
-    public Button newCalculateButton;
+    public JFXButton newCalculateButton;
     @FXML
     private MenuItem exportMenuButton;
 
@@ -38,7 +39,7 @@ public class Controller implements Initializable {
     private MenuItem openMenuItem;
 
     @FXML // fx:id="newPersonButton"
-    private Button newPersonButton; // Value injected by FXMLLoader
+    private JFXButton newPersonButton; // Value injected by FXMLLoader
 
     @FXML // fx:id="personTable"
     private TableView<Person> personTable; // Value injected by FXMLLoader
@@ -56,7 +57,7 @@ public class Controller implements Initializable {
     private TableColumn<Person, BigDecimal> balanceDueColumn; // Value injected by FXMLLoader
 
     @FXML // fx:id="newBillButton"
-    private Button newBillButton; // Value injected by FXMLLoader
+    private JFXButton newBillButton; // Value injected by FXMLLoader
 
     @FXML // fx:id="billTable"
     private TableView<Bill> billTable; // Value injected by FXMLLoader
