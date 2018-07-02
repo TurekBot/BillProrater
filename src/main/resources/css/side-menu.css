@@ -1,0 +1,66 @@
+/* As closely as possible, I've tried to follow Google's Material Design
+Guidelines for a Navigation Drawer. See https://material.io/guidelines/patterns/navigation-drawer.html#navigation-drawer-specs*/
+
+.root {
+    -fx-base: white;
+}
+
+.user-name {
+    -fx-font: 14 "Roboto Medium" !important;
+/*    -fx-text-fill: #FFFFFF;*/
+
+}
+
+.groups {
+    -fx-font: 14 "Roboto Regular";
+/*    -fx-text-fill: #FFFFFF;*/
+}
+
+.header {
+    -fx-background-color: lightgray;
+}
+
+
+
+
+.jfx-list-cell {
+    -fx-pref-height: 48;
+    -fx-padding: 0.25em 16 0.25em 16;
+
+    /* Changes the color of the selection bar. See "-fx-selection-bar" and "-fx-selection-bar-non-focused" in modena.css*/
+    -fx-selection-bar: rgb(0,0,0,.015);
+    -fx-selection-bar-non-focused: transparent;
+
+    /* Removes the default even odd coloring scheme. */
+    -fx-control-inner-background-alt: -fx-control-inner-background;
+}
+
+.jfx-list-cell .label {
+    -fx-graphic-text-gap: 27px;
+    -fx-font: 14 "Roboto Medium";
+    -fx-text-fill: rgba(0,0,0,.87);
+}
+
+.jfx-list-cell .icon-container {
+    -fx-pref-width: 24px;
+    -fx-pref-height: 24px;
+}
+
+.separator {
+   /* *//*-fx-border-color: red;*//*
+    -fx-control-inner-background: white;
+    -fx-background: white;
+    -fx-base: white !important;*/
+}
+
+.jfx-list-view {
+    /*Gets rid of the border. Java uses layered backgrounds to make borders sometimes. */
+    -fx-background-insets: 0;
+}
+
+.glyph-icon {
+    -fx-font-family:"FontAwesome" !important;
+    -fx-font-weight: normal;
+    -fx-font-smoothing-type: lcd;
+    -fx-text-fill: rgba(0,0,0,.87);
+}

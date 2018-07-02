@@ -1,0 +1,737 @@
+/*
+   Here I define some values that are used throughout the rest of the stylesheet. The asterisk selector (*) implies that these
+   values are accessible to everything.
+
+   Though ".root" as a selector may be the traditional thing to do here, I'm using "*", instead, to widen the scope and
+   allow any node to access these stylesheet-wide attributes, not just the root node. See this link: https://stackoverflow.com/a/49207678/5432315
+ */
+* {
+    -fx-font-family: "Roboto"; /*Apply google Roboto font to all UI components*/
+
+    /** Primary Color **/
+    /* For scheme, see https://material.io/color/#!/?view.left=0&view.right=0&primary.color=00BCD4 */
+    -primary-color: #00BCD4;
+    -light-primary-color: #62efff;
+    -dark-primary-color: #008ba3;
+
+    /** Secondary Color **/
+    /* For scheme, see https://material.io/color/#!/?view.left=0&view.right=0&primary.color=00BCD4 */
+    -secondary-color: -primary-color;
+    -light-secondary-color: -light-primary-color;
+    -dark-secondary-color: -dark-primary-color;
+
+    -light-gray: #F5F5F6;
+    -dark-gray: #E1E2E1;
+
+    -fx-base: -dark-gray;
+    -fx-accent: -dark-secondary-color;
+
+    -fx-focus-color: -dark-primary-color;
+    -fx-faint-focus-color: transparent;
+}
+
+/* When any button is hovered or pressed, it will have the hand cursor*/
+.jfx-button, .jfx-rippler {
+    -fx-cursor: HAND;
+}
+
+.jfx-rippler {
+    -jfx-rippler-fill: -light-secondary-color;
+}
+
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: -primary-color;
+}
+
+.jfx-tab-pane .headers-region .tab-selected-line {
+    -fx-background-color: #FFF;
+}
+
+.glyph-icon {
+    -fx-font-family:"FontAwesome" !important;
+    -fx-font-weight: normal;
+    -fx-font-smoothing-type: lcd;
+}
+
+.clear-button .glyph-icon {
+    -glyph-name: "TRASH_ALT";
+    -fx-font-family:"FontAwesome" !important;
+}
+
+.send-button .glyph-icon {
+    -glyph-name: "PAPER_PLANE";
+    -fx-font-family:"FontAwesome" !important;
+}
+
+.jfx-menu-button .glyph-icon {
+    -glyph-name: "CARET_DOWN";
+}
+
+.remove-file-button .glyph-icon {
+    -glyph-name: "TRASH";
+    -fx-fill: #757575;
+}
+
+.jfx-menu-button {
+    -fx-content-display: RIGHT;
+}
+
+#discrepancyTypesMenuButton {
+    -background-color: white;
+    -fx-background-color: -background-color;
+}
+
+#discrepancyTypesMenuButton:hover {
+    -fx-background-color: derive(-background-color, -7%);
+}
+
+#webViewPlaceHolder {
+    -fx-background-color: rgb(0.0, 0.0, 0.0, 0.025);
+}
+
+.dark-web-view-container {
+    -fx-background-color: #F5F5F5;
+}
+
+.light-web-view-container {
+    -fx-background-color: white;
+}
+
+.floating-action-button {
+    -jfx-button-type: RAISED;
+    -fx-background-radius: 28px;
+    -fx-pref-width: 56px;
+    -fx-pref-height: 56px;
+    -fx-cursor: hand;
+    -fx-content-display: GRAPHIC_ONLY;
+    -fx-background-color: -secondary-color;
+}
+.floating-action-button:armed .glyph-icon,
+.floating-action-button:focused .glyph-icon,
+.floating-action-button:hover .glyph-icon,
+.floating-action-button .glyph-icon {
+    -fx-font-size: 24px;
+    -fx-font-family:"FontAwesome" !important;
+}
+
+.flat-button {
+    -jfx-button-type: FLAT;
+    -fx-font: bold 14px "Roboto Medium";
+}
+
+.flat-button:hover {
+    -jfx-button-type: FLAT;
+    -fx-font: bold 14px "Roboto Medium";
+    -hover-background-color: rgb(153,153,153, .20);
+    -fx-background-color: -hover-background-color;
+}
+
+.raised-button {
+    -jfx-button-type: RAISED;
+    -fx-background-color: -secondary-color;
+    -fx-font: bold 14px "Roboto Medium";
+}
+
+.raised-button:hover {
+    -jfx-button-type: RAISED;
+    -fx-background-color: derive(-secondary-color, -7%);
+}
+
+.jfx-toggle-node:hover {
+    -fx-background-color: white;
+}
+
+.segmented-button .jfx-toggle-node {
+    -background-color: white;
+    -fx-background-color: -background-color;
+}
+.segmented-button .jfx-toggle-node:hover {
+    -fx-background-color: derive(-background-color, -7%);
+}
+
+/*--------------------------------------------------------------------------****
+ *                                                                             *
+ * Issue Details Table                                                         *
+ *                                                                             *
+ ****--------------------------------------------------------------------------*/
+
+#issueDetailsTable .action-button-table-cell {
+    -fx-content-display: GRAPHIC_ONLY;
+}
+
+#issueDetailsTable .action-button-table-cell .glyph-icon {
+    -glyph-name: "EXPAND";
+    /*-glyph-size: 16;*/
+    -fx-fill: #757575;
+}
+/*--------------------------------------------------------------------------***/
+
+#discrepancyTitledPane .file-thumbnail {
+    -fx-font-size: 50;
+    -fx-label-padding: 20;
+}
+
+
+.file-thumbnail {
+    -fx-font-size: 30;
+    -fx-label-padding: 20;
+}
+
+.tooltip {
+    /* These styles have been adapted from here:
+     * https://material.io/guidelines/components/tooltips.html#tooltips-interaction
+     and here
+     * https://github.com/jfoenixadmin/JFoenix/issues/440
+     */
+    -fx-font-size: 1em; /* The modena.css default is 0.85em. That's a bit too small. */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-color: rgb(97, 97, 97, 0.9); /* This is grey-700 at 90% opacity */
+    -fx-opacity: 0.9;
+    -fx-padding: 3px 8px;
+    -fx-max-height: 22px;
+    -fx-max-width: 250px;
+    -fx-background-radius: 2px;
+    -fx-pref-width: 100%;
+}
+
+/*
+    Plain ".tooltip"'s font size is dependent on whatever is containing the tooltip.
+    This style class here is for the times that you have a node with a big font, but you want a normal-sized tooltip.
+*/
+.normal-sized-tooltip {
+    -fx-font-size: 12px;
+}
+
+/*--------------------------------------------------------------------------****
+ *                                                                             *
+ * Groups Table                                                                *
+ *                                                                             *
+ ****--------------------------------------------------------------------------*/
+
+#groupsTable .action-button-table-cell {
+    -fx-content-display: GRAPHIC_ONLY;
+}
+
+#groupsTable .action-button-table-cell .glyph-icon {
+    -glyph-name: "USERS";
+    /*-glyph-size: 16;*/
+    -fx-fill: #757575;
+}
+/*--------------------------------------------------------------------------***/
+
+.text, .label{
+    /* This font smoothing miracle is thanks to Fernando Paz: https://stackoverflow.com/a/24419312/5432315 */
+    -fx-font-smoothing-type: gray;
+}
+
+/* Makes any titled panes inside of list views have transparent header sections */
+.list-view .titled-pane > .title {
+    -fx-background-color: transparent;
+}
+
+/* Gets rid of any border around list views */
+.list-view {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* Gets rid of any border around the titled panes */
+.titled-pane > *.content {
+    -fx-border-color: transparent;
+ }
+
+.jfx-sub-list-list-cell {
+    /*
+    This removes the left and right padding, but preserves the top and bottom.
+    We want to do this because we want the inner cells (in the sub type list view) to look like they're just normal cells
+    */
+    -fx-padding: 0.25em 0em 0.25em 0;
+}
+
+.jfx-check-box-list-cell {
+    -fx-pref-height: 40;
+    /* This leaves enough room for the checkbox's rippler */
+    -fx-padding: 0.25em 0.8em 0.25em 0.8em;
+
+}
+
+
+
+/*--------------------------------------------------------------------------****
+ *                                                                             *
+ * Masker Pane   		                                                       *
+ *                                                                             *
+ ****--------------------------------------------------------------------------*/
+.masker-center {
+    /* We want to use the masker pane, but we don't want the little box that comes with it. It looks
+       a little too "modena". */
+    -fx-background-color: transparent;
+}
+
+.masker-center .jfx-spinner {
+    /* -jfx-radius only sets the max sizes. We want to ensure that the spinner is forced to be the size
+    we set, so we need to set it's max, pref and min sizes. */
+    real-radius: 150;
+    -jfx-radius: real-radius;
+    -fx-pref-height: real-radius;
+    -fx-pref-width: real-radius;
+    -fx-min-height: real-radius;
+    -fx-min-width: real-radius;
+}
+.masker-center .jfx-spinner .arc {
+    /* Sets the width of the spinner line */
+    -fx-stroke-width: 10.0;
+}
+
+/*--------------------------------------------------------------------------****
+ *                                                                             *
+ * Scroll Bar			                                                       *
+ *                                                                             *
+ ****--------------------------------------------------------------------------*/
+
+.scroll-bar:vertical > .track-background, .scroll-bar:horizontal > .track-background {
+    -fx-background-color: #F1F1F1;
+    -fx-background-insets: 0.0;
+}
+
+.scroll-bar:vertical > .thumb, .scroll-bar:horizontal > .thumb {
+    -fx-background-color: #BCBCBC;
+    -fx-background-insets: 0.0;
+    -fx-background-radius: 1.0;
+}
+
+.scroll-bar:vertical > .increment-button, .scroll-bar:vertical > .decrement-button {
+    -fx-padding: 5 2 5 2;
+}
+
+.scroll-bar:horizontal > .increment-button, .scroll-bar:horizontal > .decrement-button {
+    -fx-padding: 2 5 2 5;
+}
+
+.scroll-bar > .increment-button, .scroll-bar > .decrement-button, .scroll-bar:hover > .increment-button, .scroll-bar:hover > .decrement-button {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar > .increment-button > .increment-arrow, .scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: rgb(150.0, 150.0, 150.0);
+}
+
+.scroll-bar:vertical > .increment-button > .increment-arrow {
+    -fx-shape: "M298 426h428l-214 214z";
+}
+
+.scroll-bar:vertical > .decrement-button > .decrement-arrow {
+    -fx-shape: "M298 598l214-214 214 214h-428z";
+}
+
+.scroll-bar:horizontal > .increment-button > .increment-arrow {
+    -fx-shape: "M0 428l0 -428l214 214l-214 214z";
+}
+
+.scroll-bar:horizontal > .decrement-button > .decrement-arrow {
+    -fx-shape: "M214 0l0 428l-214 -214l214 -214z";
+}
+
+/*--------------------------------------------------------------------------****
+ *                                                                             *
+ * Scroll Pane			                                                       *
+ *                                                                             *
+ ****--------------------------------------------------------------------------*/
+
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane:focused {
+    -fx-background-insets: 0;
+}
+
+.scroll-pane .corner {
+    -fx-background-insets: 0;
+}
+
+
+
+/*--------------------------------------------------------------------------****
+ *                                                                             *
+ * JFX Tool Bar                                                                *
+ *                                                                             *
+ ****--------------------------------------------------------------------------*/
+
+.jfx-tool-bar {
+    -fx-background-color: -primary-color;
+    -fx-pref-width: 100.0%;
+    -fx-pref-height: 64.0px;
+}
+
+.jfx-tool-bar .title {
+    -fx-font-size: 20.0;
+    -fx-font-weight: BOLD;
+}
+
+.jfx-tool-bar HBox {
+    -fx-alignment: center;
+    -fx-spacing: 25.0;
+    -fx-padding: 0 0 0 24px;
+}
+
+/* Segmented Buttons happen to have HBoxes in them so this undoes what the .jfx-toolbar HBox selector does for the allMineIssuesToggle*/
+ #allMineIssuesToggle HBox{
+    -fx-spacing: 0;
+    -fx-padding: 0 0 0 0px;
+}
+
+.jfx-tool-bar .jfx-hamburger {
+    /*Give each burger enough room to have it's Rippler come out a bit*/
+    -fx-padding: 22px;
+}
+
+.jfx-tool-bar .jfx-options-burger StackPane {
+    /*Squashes the burger in to form an ellipsis*/
+    -fx-pref-width: 4px;
+}
+
+.option-list-view {
+    -fx-pref-width: 160.0px;
+    -fx-background-color: WHITE;
+}
+
+.option-jfx-list-view-icon {
+    -fx-padding: 0.0 10.0 0.0 5.0;
+    -fx-cursor: hand;
+}
+
+
+/* Style Inner Toolbars */
+.inner-tool-bar {
+    -fx-background-color: -light-gray;
+    /* Removes shadow caused by JFXToolbar's "depth" */
+    -fx-effect: none;
+}
+
+.titled-pane > .title {
+    -fx-background-color: derive(-light-gray, 30%);
+    -fx-font-size: 14px;
+}
+/*--------------------------------------------------------------------------****/
+
+/*--------------------------------------------------------------------------****
+*                                                                              *
+* Search Bar                                                                   *
+*                                                                              *
+*****--------------------------------------------------------------------------*/
+.search-bar {
+    -fx-font-family: "Roboto Light";
+    -fx-font-size: 20px;
+    -fx-alignment: center-left;
+}
+
+.search-bar > .jfx-text-field {
+    /*Makes it so the label will disappear when the user starts typing instead of floating above. */
+    -jfx-label-float: false !important;
+}
+
+.search-bar > .jfx-text-field .text, .search-bar > .jfx-text-field  Path {
+    /* This moves the text and the caret (that's the Path) over the same amount, to make way for the search-bar-icon*/
+    -fx-translate-x: 35;
+}
+
+.search-bar-icon {
+    -fx-translate-x: 10;
+    -glyph-name: "SEARCH";
+    -fx-font-size: 18;
+}
+
+/*--------------------------------------------------------------------------****/
+
+.card {
+    -fx-background-color: -light-gray;
+    -fx-padding: 24px;
+}
+
+.card .inner-tool-bar HBox {
+    -fx-padding: 0px;
+}
+
+
+/*--------------------------------------------------------------------------****
+*                                                                              *
+* JFX Decorator                                                                *
+*                                                                              *
+*****--------------------------------------------------------------------------*/
+
+.jfx-decorator {
+    -fx-decorator-color: -dark-primary-color;
+}
+
+.jfx-decorator .jfx-decorator-buttons-container {
+    -fx-background-color: -fx-decorator-color;
+}
+
+/* Styles the (glyphs inside the) Fullscreen, Minimize, Maximize, and Close buttons */
+.jfx-decorator-button .jfx-svg-glyph {
+    -fx-background-color: black;
+}
+
+.jfx-decorator .resize-border {
+    -fx-border-color: -fx-decorator-color;
+    -fx-border-width: 0 4 4 4;
+}
+
+.jfx-decorator .jfx-decorator-title-container .jfx-decorator-text {
+    -fx-fill: black;
+    -fx-font-size: 16;
+}
+
+/* Styles the icon in the right-hand corner of the window */
+.jfx-decorator .jfx-decorator-title-container .jfx-svg-glyph {
+    /*TODO: Get a new, pertinent, shape*/
+    -fx-shape: "M512 682c-128.024-99.309-255.626-199.040-384-298l384-298 384 298c-128.375 98.958-255.974 198.693-384 298zM512 792l314-246 70 54-384 298-384-298 70-54z";
+    -jfx-size: 15;
+    -fx-background-color: black;
+}
+/*--------------------------------------------------------------------------****/
+
+/*--------------------------------------------------------------------------****
+*                                                                              *
+* JFX Snack Bar                                                                *
+*                                                                              *
+*****--------------------------------------------------------------------------*/
+.jfx-snackbar-content {
+    -fx-background-color: #323232;
+}
+
+.jfx-snackbar-toast {
+    -fx-text-fill: WHITE;
+}
+
+.jfx-snackbar-action {
+    -fx-text-fill: #ff4081; /* This might be prettier as the primary color. */
+}
+/*--------------------------------------------------------------------------****/
+/*--------------------------------------------------------------------------****
+*                                                                              *
+* For Flow List                                                               *
+*                                                                              *
+*****--------------------------------------------------------------------------*/
+.flow-list-cell .comment-avatar {
+    -fx-font-size: 35;
+}
+
+.flow-list-cell .action-icon {
+    -fx-text-fill: black;
+    -fx-font-weight: normal;
+    -fx-background-color: darkgray !important;
+    -fx-font-size: 25;
+}
+
+.flow-list-cell .small-avatar {
+    -fx-font-size: 12px;
+}
+
+.flow-list-cell .author {
+    -fx-font-weight: bold;
+}
+
+.flow-list-cell .comment-summary {
+    -fx-font-weight: bold;
+}
+
+/*--------------------------------------------------------------------------****/
+
+
+.content-pane {
+    -fx-padding: 10;
+}
+
+.jfx-text-area,
+.jfx-text-field,
+.jfx-combo-box,
+.jfx-password-field {
+    -jfx-label-float: true;
+}
+
+.jfx-toggle-node{
+    -fx-background-color: rgb(0, 0, 0, 0.025);
+}
+
+.jfx-date-picker {
+    -jfx-default-color: -dark-primary-color;
+}
+
+.month-year-pane {
+    /*Something I did broke the colored panel in the .jfx-date-picker so that it shows a gray color
+    instead of the intended default color. So we'll just override it manually. See JFXDatePickerContent.java*/
+    -fx-background-color: -dark-primary-color;
+}
+
+.html-editor .tool-bar
+{
+	/*This hides the HTMLEditor's Toolbar. We want this because we need to be able to
+	  paste tables into the editor, and we can't do that with a normal TextArea.*/
+    visibility: hidden;
+}
+
+.scroll-pane,
+.scroll-pane .viewport{
+	-fx-border-width: 0;
+	-fx-border-color: red;
+}
+
+.no-label-checkbox {
+	-fx-label-padding: 0;
+}
+ /* Gets rid of the gray border around scroll panes. If you mind the 1px gap, there's another solution: https://stackoverflow.com/a/17540428/5432315*/
+.scroll-pane {
+	-fx-background-color: transparent;
+}
+
+/*Gets rid of the border. For details, see: https://stackoverflow.com/a/16864763/5432315*/
+.scroll-pane,
+.split-pane {
+    -fx-box-border: transparent;
+}
+
+
+.letter-avatar {
+
+    /* Default font size. Go ahead and change it, the background circle will change accordingly. */
+    -fx-font-size: 45px;
+
+    /* Makes the background of the label a circle. */
+    -fx-background-radius: 100;
+
+    /* Makes the background a minimum width of 1.5 times the size of the text*/
+    -fx-min-width: 1.5em;
+    -fx-min-height: 1.5em;
+    -fx-pref-width: 1.5em;
+    -fx-pref-height: 1.5em;
+
+    -fx-alignment: center;
+
+    /* The default text background is this color, but please do override it. */
+    -background-color: #0000008a;
+    -fx-background-color: -background-color;
+}
+
+.letter-avatar .text {
+    /* Automatically changes the color of the text based on the background color. */
+    /*-fx-fill: ladder(-background-color, white 0%, white 59%, black 60%, black 100%);*/
+}
+
+.error-label {
+    -fx-font-size: 11px;
+}
+
+.error-icon {
+    -glyph-name: "WARNING";
+    -fx-font-family:"FontAwesome" !important;
+}
+
+/* This is supposed to keep the combo box a minimum size so that it doesn't
+ accidentally hide things it shouldn't. See https://stackoverflow.com/a/38872185/5432315 */
+.combo-box .combo-box-popup > .list-view {
+    -fx-min-height: 200;
+}
+
+
+/*************************************************/
+/***** FROM HERE DOWN WAS COPIED FROM POA ********/
+/*************************************************/
+
+
+/*--------------------------------------------------------------------------****
+ *
+ * General Stuff
+ *
+ ****--------------------------------------------------------------------------*/
+
+
+ /*--------------------------------------------------------------------------****
+ *
+ * Text Formatting
+ *
+ ****--------------------------------------------------------------------------*/
+ .errorFill {
+     -fx-base: firebrick;
+ }
+
+ #errorText {
+     -fx-font-size: 10pt;
+ 	-fx-fill: red;
+ }
+
+ #messageText {
+     -fx-font-size: 10pt;
+ }
+
+.tool-bar .title {
+    -fx-font-size: 19px;
+}
+
+ .subTitle {
+    -fx-font-size: 14px;
+    -fx-font-style: italic;
+ }
+
+.key {
+    -fx-font-weight: bold !important;
+}
+.editable-column {
+    -fx-font-style: italic;
+}
+
+/* This actually only applies to TextFields. You can't select Labels. See https://stackoverflow.com/a/22535106/5432315*/
+.selectable-label, .selectable-label:focused {
+    /*-fx-background-color: lightgray;*/
+    -fx-background-insets: 0px ;
+    -jfx-disable-animation: true;
+    -jfx-focus-color: transparent;
+}
+
+/*This makes the mnemonic underline always visible*/
+.mnemonic-underline {
+    -fx-stroke: -fx-text-fill;
+}
+
+#involvedColumn .label {
+	/*This hides the column's label. We want to keep the label around so that when someone
+	tries to access the Table Menu Button, the option to add/remove this column has a label.
+	For a description of the button, see: https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TableView.html#isTableMenuButtonVisible--*/
+	-fx-content-display: graphic-only;
+}
+
+.attach-files-button .glyph-icon {
+    -glyph-name: "PAPERCLIP";
+    -glyph-size: 14px;
+}
+
+/*  For some reason when the info overlay gets put in a button, the text gets
+    too big.*/
+.jfx-button .info-overlay .info {
+    -fx-font-size: 10;
+}
+
+/*--------------------------------------------------------------------------****
+ *
+ * Images
+ *
+ ****--------------------------------------------------------------------------*/
+
+/*FIXME: Figure out how to make this work for JFXTextAREA, too. */
+.enterable-field {
+  -fx-background-image: url('../images/enter-arrow_transparent.png');
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: right center;
+}
+
+
+.filter-image {
+    -fx-image:  url('../images/filter.png');
+}
+
+
+
+

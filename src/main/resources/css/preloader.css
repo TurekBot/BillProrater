@@ -1,0 +1,17 @@
+.root {
+    /* This is the -dark-gray color from vendor-issues-styles.css, but at 75% opacity. */
+    -fx-background-color: rgba(224, 225, 224, 0.75);
+ }
+
+#notificationText {
+    -fx-text-fill: black !important;
+}
+
+.title {
+    -fx-font-size: 40px;
+}
+
+.jfx-spinner .arc {
+    /* Sets the width of the spinner line */
+    -fx-stroke-width: 10.0;
+}

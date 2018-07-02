@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="tech.ugma.brorater.Controller">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" stylesheets="@css/brotater-styles.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tech.ugma.brorater.Controller">
     <MenuBar VBox.vgrow="NEVER">
         <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" text="New" />
@@ -17,12 +23,12 @@
             <MenuItem fx:id="exportMenuButton" mnemonicParsing="false" text="Export as PDF" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <!--<MenuItem mnemonicParsing="false" text="Preferences…" />-->
-            <SeparatorMenuItem mnemonicParsing="false"/>
-            <MenuItem mnemonicParsing="false" text="Quit"/>
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Quit" />
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
-            <MenuItem mnemonicParsing="false" text="Undo"/>
-            <MenuItem mnemonicParsing="false" text="Redo"/>
+            <MenuItem mnemonicParsing="false" text="Undo" />
+            <MenuItem mnemonicParsing="false" text="Redo" />
             <!--            <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" text="Cut" />
                         <MenuItem mnemonicParsing="false" text="Copy" />
@@ -33,30 +39,35 @@
                         <MenuItem mnemonicParsing="false" text="Unselect All" />-->
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
-            <MenuItem mnemonicParsing="false" text="About Brorater"/>
+            <MenuItem mnemonicParsing="false" text="About Brorater" />
         </Menu>
     </MenuBar>
-    <AnchorPane VBox.vgrow="ALWAYS">
-        <VBox layoutX="22.0" layoutY="48.0" prefHeight="533.0" prefWidth="538.0" spacing="10.0">
-            <JFXButton fx:id="newPersonButton" mnemonicParsing="false" text="New Person"/>
-            <TableView fx:id="personTable" prefHeight="290.0" prefWidth="115.0">
-                <columns>
-                    <TableColumn fx:id="personNameColumn" prefWidth="140.0" text="Name"/>
-                    <TableColumn fx:id="moveInDateColumn" prefWidth="110.39996337890625" text="Move-In Date"/>
-                    <TableColumn fx:id="moveoutDateColumn" prefWidth="110.39996337890625" text="Move-Out Date"/>
-                    <TableColumn fx:id="balanceDueColumn" prefWidth="75.0" text="Balance Due"/>
-                </columns>
-            </TableView>
-            <JFXButton fx:id="newBillButton" mnemonicParsing="false" text="New Bill"/>
-            <TableView fx:id="billTable" prefHeight="318.0" prefWidth="200.0">
-                <columns>
-                    <TableColumn fx:id="billNameColumn" prefWidth="150.0" text="Bill"/>
-                    <TableColumn fx:id="startDateColumn" prefWidth="100.0" text="Start Date"/>
-                    <TableColumn fx:id="endDateColumn" prefWidth="100.0" text="End Date"/>
-                    <TableColumn fx:id="totalColumn" prefWidth="75.0" text="Total"/>
-                </columns>
-            </TableView>
-        </VBox>
-        <JFXButton fx:id="newCalculateButton" layoutX="424.0" layoutY="5.0" mnemonicParsing="false" text="Calculate Bill&#10; Breakdown"/>
-    </AnchorPane>
+     <VBox prefHeight="533.0" prefWidth="538.0" spacing="10.0">
+         <JFXButton fx:id="newPersonButton" mnemonicParsing="false" styleClass="raised-button" text="New Person" />
+         <TableView fx:id="personTable" stylesheets="@css/jfx-table-view.css">
+             <columns>
+            <TableColumn editable="false" prefWidth="140.0" sortable="false" styleClass="padding-column" />
+                 <TableColumn fx:id="personNameColumn" prefWidth="140.0" text="Name" />
+                 <TableColumn fx:id="moveInDateColumn" prefWidth="110.39996337890625" text="Move-In Date" />
+                 <TableColumn fx:id="moveoutDateColumn" prefWidth="110.39996337890625" text="Move-Out Date" />
+                 <TableColumn fx:id="balanceDueColumn" prefWidth="75.0" text="Balance Due" />
+            <TableColumn editable="false" prefWidth="140.0" sortable="false" styleClass="padding-column" />
+             </columns>
+         </TableView>
+         <JFXButton fx:id="newBillButton" mnemonicParsing="false" styleClass="raised-button" text="New Bill" />
+         <TableView fx:id="billTable" stylesheets="@css/jfx-table-view.css">
+             <columns>
+            <TableColumn editable="false" prefWidth="140.0" sortable="false" styleClass="padding-column" />
+                 <TableColumn fx:id="billNameColumn" prefWidth="150.0" text="Bill" />
+                 <TableColumn fx:id="startDateColumn" prefWidth="100.0" text="Start Date" />
+                 <TableColumn fx:id="endDateColumn" prefWidth="100.0" text="End Date" />
+                 <TableColumn fx:id="totalColumn" prefWidth="75.0" text="Total" />
+            <TableColumn editable="false" prefWidth="140.0" sortable="false" styleClass="padding-column" />
+             </columns>
+         </TableView>
+        <JFXButton fx:id="newCalculateButton" mnemonicParsing="false" styleClass="raised-button" text="Calculate Bill&#10; Breakdown" />
+      <VBox.margin>
+         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+      </VBox.margin>
+     </VBox>
 </VBox>
