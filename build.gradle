@@ -28,4 +28,7 @@ dependencies {
     // https://mvnrepository.com/artifact/com.itextpdf/itextpdf
     compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13'
 
+    // Sweet Material Design Components
+    compile 'com.jfoenix:jfoenix:8.0.4'
+
 }

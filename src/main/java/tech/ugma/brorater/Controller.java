@@ -1,5 +1,7 @@
 package tech.ugma.brorater;
 
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTextField;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -103,10 +105,10 @@ public class Controller implements Initializable {
                 "This is probably the duration of a whole month—at least that's what normal landlords do.");
 
 
-        DatePicker startDatePicker = new DatePicker();
+        JFXDatePicker startDatePicker = new JFXDatePicker();
         startDatePicker.setPromptText("Start Date");
 
-        DatePicker endDatePicker = new DatePicker();
+        JFXDatePicker endDatePicker = new JFXDatePicker();
         endDatePicker.setPromptText("End Date");
 
         VBox vBox = new VBox(label, startDatePicker, endDatePicker);
@@ -369,13 +371,13 @@ public class Controller implements Initializable {
     private Dialog<Person> setUpNewPersonDialog() {
         Dialog<Person> dialog = new Dialog<>();
 
-        TextField nameTextField = new TextField();
+        JFXTextField nameTextField = new JFXTextField();
         nameTextField.setPromptText("Name");
 
-        DatePicker moveInDatePicker = new DatePicker();
+        JFXDatePicker moveInDatePicker = new JFXDatePicker();
         moveInDatePicker.setPromptText("Move-In Date");
 
-        DatePicker moveOutDatePicker = new DatePicker();
+        JFXDatePicker moveOutDatePicker = new JFXDatePicker();
         moveOutDatePicker.setPromptText("Move-Out Date");
 
         VBox vBox = new VBox(nameTextField, moveInDatePicker, moveOutDatePicker);
@@ -409,16 +411,16 @@ public class Controller implements Initializable {
     private Dialog<Bill> setUpNewBillDialog() {
 
         Dialog<Bill> dialog = new Dialog<>();
-        TextField nameTF = new TextField();
+        JFXTextField nameTF = new JFXTextField();
         nameTF.setPromptText("Bill Name");
 
-        DatePicker startDatePicker = new DatePicker();
+        JFXDatePicker startDatePicker = new JFXDatePicker();
         startDatePicker.setPromptText("Start Date");
 
-        DatePicker endDatePicker = new DatePicker();
+        JFXDatePicker endDatePicker = new JFXDatePicker();
         endDatePicker.setPromptText("End Date");
 
-        TextField totalTF = new TextField();
+        JFXTextField totalTF = new JFXTextField();
         totalTF.setPromptText("Total");
 
         VBox vBox = new VBox(nameTF, startDatePicker, endDatePicker, totalTF);
