@@ -1,6 +1,8 @@
 package tech.ugma.brorater;
 
 import com.jfoenix.controls.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,19 +30,38 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
+    @FXML
+    private Label aboutMenuItem;
+
+    @FXML
+    private JFXListView menu1;
+
+    @FXML
+    private JFXListView menu2;
+
 
     @FXML // fx:id="wholeApp"
     private StackPane wholeApp; // Value injected by FXMLLoader
 
     @FXML
-    private MenuItem saveMenuItem;
+    private Label saveMenuItem;
 
     public JFXButton newCalculateButton;
     @FXML
     private MenuItem exportMenuButton;
 
     @FXML
-    private MenuItem openMenuItem;
+    private JFXDrawer drawer;
+
+    @FXML
+    private JFXRippler navIconRippler;
+    @FXML
+    private StackPane navIconContainer;
+    @FXML
+    private JFXHamburger navIcon;
+
+    @FXML
+    private Label openMenuItem;
 
     @FXML // fx:id="addPersonButton"
     private JFXButton addPersonButton; // Value injected by FXMLLoader
@@ -106,7 +127,71 @@ public class Controller implements Initializable {
         setUpBillTable();
 
         setUpMenu();
+        setUpSideMenu();
+        setUpNavIcon();
         setUpCalculateButton();
+    }
+
+    private void setUpNavIcon() {
+
+
+        navIconContainer.setOnMouseClicked(event -> {
+            // If current view is dashboard, open side panel
+            if (drawer.isClosed() || drawer.isClosing()) {
+                drawer.open();
+            } else {
+                drawer.close();
+            }
+        });
+    }
+
+    private void setUpSideMenu() {
+
+        menu1.getSelectionModel().selectedItemProperty().addListener((observable, wasSelected, selected) -> {
+            Label label = (Label) selected;
+            if (label.equals(openMenuItem)) {
+                fileChooser.setTitle("Choose an XML file containing Person and Bill data");
+
+                // This only allows the user to select "*.xml" files
+                FileChooser.ExtensionFilter filter =
+                        new FileChooser.ExtensionFilter("XML files", "*.xml");
+
+                fileChooser.getExtensionFilters().clear();
+                fileChooser.getExtensionFilters().add(filter);
+
+                // Passing in the primaryStage makes it so that any input to the rest
+                // of the windows is blocked: the user can only interact with the FileChooser
+                File file = fileChooser.showOpenDialog(primaryStage);
+
+                if (file != null) {
+                    Warehouse.loadDataFromFile(file, personTable, billTable);
+                }
+
+            } else if (label.equals(saveMenuItem)) {
+                fileChooser.setTitle("Save Brorate project");
+
+                // This only allows the user to select "*.xml" files
+                FileChooser.ExtensionFilter filter =
+                        new FileChooser.ExtensionFilter("XML files", "*.xml");
+
+                fileChooser.getExtensionFilters().clear();
+                fileChooser.getExtensionFilters().add(filter);
+
+
+                // Passing in the primaryStage makes it so that any input to the rest
+                // of the windows is blocked: the user can only interact with the FileChoose
+                File saveFile = fileChooser.showSaveDialog(primaryStage);
+
+                if (saveFile != null) {
+                    Warehouse.savePersonDataToFile(saveFile, personTable, billTable);
+                }
+
+            } else if (label.equals(aboutMenuItem)) {
+
+
+            }
+        });
+
     }
 
     private void setUpRemoveBillButton() {
@@ -242,51 +327,15 @@ public class Controller implements Initializable {
 
     private void setUpMenu() {
 
-        saveMenuItem.setOnAction(event -> {
-            fileChooser.setTitle("Save Brorate project");
+//        exportMenuButton.setOnAction(event -> {
+//            fileChooser.getExtensionFilters().clear();
+//            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PDF ", "*.pdf"));
+//            fileChooser.setTitle("Export Location");
+//            File saveFile = fileChooser.showSaveDialog(primaryStage);
+//            FirstPdf.generate(saveFile);
+//
+//        });
 
-            // This only allows the user to select "*.xml" files
-            FileChooser.ExtensionFilter filter =
-                    new FileChooser.ExtensionFilter("XML files", "*.xml");
-
-            fileChooser.getExtensionFilters().clear();
-            fileChooser.getExtensionFilters().add(filter);
-
-
-            // Passing in the primaryStage makes it so that any input to the rest
-            // of the windows is blocked: the user can only interact with the FileChoose
-            File saveFile = fileChooser.showSaveDialog(primaryStage);
-
-            Warehouse.savePersonDataToFile(saveFile, personTable, billTable);
-        });
-
-        exportMenuButton.setOnAction(event -> {
-            fileChooser.getExtensionFilters().clear();
-            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PDF ", "*.pdf"));
-            fileChooser.setTitle("Export Location");
-            File saveFile = fileChooser.showSaveDialog(primaryStage);
-            FirstPdf.generate(saveFile);
-
-        });
-
-
-        openMenuItem.setOnAction(event -> {
-            fileChooser.setTitle("Choose an XML file containing Person and Bill data");
-
-            // This only allows the user to select "*.xml" files
-            FileChooser.ExtensionFilter filter =
-                    new FileChooser.ExtensionFilter("XML files", "*.xml");
-
-            fileChooser.getExtensionFilters().clear();
-            fileChooser.getExtensionFilters().add(filter);
-
-            // Passing in the primaryStage makes it so that any input to the rest
-            // of the windows is blocked: the user can only interact with the FileChooser
-            File file = fileChooser.showOpenDialog(primaryStage);
-
-            Warehouse.loadDataFromFile(file, personTable, billTable);
-
-        });
 
 
     }
