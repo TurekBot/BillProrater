@@ -229,12 +229,17 @@ public class Controller implements Initializable {
     }
 
 
-    private Dialog<Range> setUpCalculateDialog() {
-        Dialog<Range> dialog = new Dialog<>();
+    private JFXDialog setUpCalculateDialog() {
 
+        JFXDialog dialog = new JFXDialog();
 
-        Label label = new Label("Please specify a date range for which to calculate the Broration (Bill Proration).\n" +
-                "This is probably the duration of a whole month—at least that's what normal landlords do.");
+        dialog.setDialogContainer(wholeApp);
+
+        JFXDialogLayout layout = new JFXDialogLayout();
+
+        layout.setHeading(new Label("Calculate Breakdown"));
+
+        Label label = new Label("Please specify a date range to calculate the breakdown for.");
 
 
         JFXDatePicker startDatePicker = new JFXDatePicker();
@@ -244,46 +249,39 @@ public class Controller implements Initializable {
         endDatePicker.setPromptText("End Date");
 
         VBox vBox = new VBox(label, startDatePicker, endDatePicker);
-        vBox.setSpacing(10);
+        vBox.setSpacing(20);
 
+        layout.setBody(vBox);
 
-        dialog.getDialogPane().setContent(vBox);
+        JFXButton okButton = new JFXButton("OK");
+        okButton.setOnAction(event -> {
+            Range range = new Range();
+            range.setStartDate(startDatePicker.getValue());
+            range.setEndDate(endDatePicker.getValue());
 
-        dialog.setResultConverter(buttonType -> {
+            calculateBroration(range, personTable.getItems(), billTable.getItems());
 
-            if (ButtonType.OK.equals(buttonType)) {
-                // Make and return a range
-                Range range = new Range();
-                range.setStartDate(startDatePicker.getValue());
-                range.setEndDate(endDatePicker.getValue());
-                return range;
-            }
-
-            return null;
+            dialog.close();
         });
+        okButton.getStyleClass().add("flat-button");
+        layout.getActions().add(okButton);
 
-        dialog.getDialogPane().getButtonTypes().addAll(
-                ButtonType.OK,
-                ButtonType.CANCEL
-        );
+        JFXButton cancelButton = new JFXButton("CANCEL");
+        cancelButton.setOnAction(event -> dialog.close());
+        cancelButton.getStyleClass().add("flat-button");
+        layout.getActions().add(cancelButton);
+
+
+        dialog.setContent(layout);
+
         // Return the dialog
         return dialog;
     }
 
     private void setUpCalculateButton() {
-        Dialog<Range> newCalculateDialog = setUpCalculateDialog();
+        JFXDialog newCalculateDialog = setUpCalculateDialog();
 
-        newCalculateButton.setOnAction(event -> {
-            Optional<Range> result = newCalculateDialog.showAndWait();
-
-            result.ifPresent(range ->
-                    calculateBroration(range, personTable.getItems(), billTable.getItems()));
-        });
-        /*
-        personTable.getItems().size();
-        while(personTable.getItems().size() != 0){
-
-        }*/
+        newCalculateButton.setOnAction(event -> newCalculateDialog.show());
     }
 
     private void calculateBroration(Range range, ObservableList<Person> people, ObservableList<Bill> bills) {
