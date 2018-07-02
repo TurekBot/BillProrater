@@ -20,9 +20,10 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
+    jcenter()
     mavenCentral()
+    mavenLocal()
 }
-
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     // https://mvnrepository.com/artifact/com.itextpdf/itextpdf
@@ -30,5 +31,8 @@ dependencies {
 
     // Sweet Material Design Components
     compile 'com.jfoenix:jfoenix:8.0.4'
+
+    // FontAwesome (Bintray - on jcenter)
+    compile 'de.jensd:fontawesomefx-fontawesome:4.7.0-5'
 
 }

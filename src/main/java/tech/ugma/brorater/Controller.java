@@ -38,8 +38,11 @@ public class Controller implements Initializable {
     @FXML
     private MenuItem openMenuItem;
 
-    @FXML // fx:id="newPersonButton"
-    private JFXButton newPersonButton; // Value injected by FXMLLoader
+    @FXML // fx:id="addPersonButton"
+    private JFXButton addPersonButton; // Value injected by FXMLLoader
+
+    @FXML // fx:id="removePersonButton"
+    private JFXButton removePersonButton; // Value injected by FXMLLoader
 
     @FXML // fx:id="personTable"
     private TableView<Person> personTable; // Value injected by FXMLLoader
@@ -56,8 +59,11 @@ public class Controller implements Initializable {
     @FXML // fx:id="balanceDueColumn"
     private TableColumn<Person, BigDecimal> balanceDueColumn; // Value injected by FXMLLoader
 
-    @FXML // fx:id="newBillButton"
-    private JFXButton newBillButton; // Value injected by FXMLLoader
+    @FXML // fx:id="addBillButton"
+    private JFXButton addBillButton; // Value injected by FXMLLoader
+
+    @FXML // fx:id="removeBillButton"
+    private JFXButton removeBillButton; // Value injected by FXMLLoader
 
     @FXML // fx:id="billTable"
     private TableView<Bill> billTable; // Value injected by FXMLLoader
@@ -87,14 +93,30 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("I'm here!");
 
-        setUpNewPersonButton();
+        setUpAddPersonButton();
+        setUpRemovePersonButton();
         setUpPersonTable();
 
-        setUpNewBillButton();
+        setUpAddBillButton();
+        setUpRemoveBillButton();
         setUpBillTable();
 
         setUpMenu();
         setUpCalculateButton();
+    }
+
+    private void setUpRemoveBillButton() {
+        removeBillButton.setOnAction(event -> {
+            Bill selectedItem = billTable.getSelectionModel().getSelectedItem();
+            billTable.getItems().remove(selectedItem);
+        });
+    }
+
+    private void setUpRemovePersonButton() {
+        removePersonButton.setOnAction(event -> {
+            Person selectedItem = personTable.getSelectionModel().getSelectedItem();
+            personTable.getItems().remove(selectedItem);
+        });
     }
 
 
@@ -337,10 +359,10 @@ public class Controller implements Initializable {
 
     }
 
-    private void setUpNewBillButton() {
+    private void setUpAddBillButton() {
         Dialog<Bill> newBillDialog = setUpNewBillDialog();
 
-        newBillButton.setOnAction(event -> {
+        addBillButton.setOnAction(event -> {
             Optional<Bill> result = newBillDialog.showAndWait();
 
             result.ifPresent(bill -> {
@@ -353,10 +375,10 @@ public class Controller implements Initializable {
 
     }
 
-    private void setUpNewPersonButton() {
+    private void setUpAddPersonButton() {
         Dialog<Person> newPersonDialog = setUpNewPersonDialog();
 
-        newPersonButton.setOnAction(event -> {
+        addPersonButton.setOnAction(event -> {
             Optional<Person> result = newPersonDialog.showAndWait();
 
             result.ifPresent(person -> {

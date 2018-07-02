@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -8,9 +9,11 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" stylesheets="@css/brotater-styles.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tech.ugma.brorater.Controller">
+<VBox prefHeight="400.0" prefWidth="640.0" stylesheets="@css/brotater-styles.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tech.ugma.brorater.Controller">
     <MenuBar VBox.vgrow="NEVER">
         <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" text="New" />
@@ -43,28 +46,62 @@
         </Menu>
     </MenuBar>
      <VBox prefHeight="533.0" prefWidth="538.0" spacing="10.0">
-         <JFXButton fx:id="newPersonButton" mnemonicParsing="false" styleClass="raised-button" text="New Person" />
-         <TableView fx:id="personTable" stylesheets="@css/jfx-table-view.css">
-             <columns>
-            <TableColumn editable="false" prefWidth="140.0" sortable="false" styleClass="padding-column" />
-                 <TableColumn fx:id="personNameColumn" prefWidth="140.0" text="Name" />
-                 <TableColumn fx:id="moveInDateColumn" prefWidth="110.39996337890625" text="Move-In Date" />
-                 <TableColumn fx:id="moveoutDateColumn" prefWidth="110.39996337890625" text="Move-Out Date" />
-                 <TableColumn fx:id="balanceDueColumn" prefWidth="75.0" text="Balance Due" />
-            <TableColumn editable="false" prefWidth="140.0" sortable="false" styleClass="padding-column" />
-             </columns>
-         </TableView>
-         <JFXButton fx:id="newBillButton" mnemonicParsing="false" styleClass="raised-button" text="New Bill" />
-         <TableView fx:id="billTable" stylesheets="@css/jfx-table-view.css">
-             <columns>
-            <TableColumn editable="false" prefWidth="140.0" sortable="false" styleClass="padding-column" />
-                 <TableColumn fx:id="billNameColumn" prefWidth="150.0" text="Bill" />
-                 <TableColumn fx:id="startDateColumn" prefWidth="100.0" text="Start Date" />
-                 <TableColumn fx:id="endDateColumn" prefWidth="100.0" text="End Date" />
-                 <TableColumn fx:id="totalColumn" prefWidth="75.0" text="Total" />
-            <TableColumn editable="false" prefWidth="140.0" sortable="false" styleClass="padding-column" />
-             </columns>
-         </TableView>
+         <BorderPane>
+             <left>
+                 <ToolBar orientation="VERTICAL" prefWidth="45.0" BorderPane.alignment="CENTER">
+                     <JFXButton fx:id="addPersonButton" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" styleClass="flat-button" text="Button">
+                         <graphic>
+                             <FontAwesomeIconView glyphName="PLUS" />
+                         </graphic>
+                     </JFXButton>
+                     <JFXButton fx:id="removePersonButton" contentDisplay="GRAPHIC_ONLY" styleClass="flat-button">
+                         <graphic>
+                             <FontAwesomeIconView glyphName="MINUS" />
+                         </graphic>
+                     </JFXButton>
+                 </ToolBar>
+             </left>
+             <center>
+                 <TableView fx:id="personTable" stylesheets="@css/jfx-table-view.css">
+                     <columns>
+                         <TableColumn editable="false" prefWidth="140.0" sortable="false" styleClass="padding-column" />
+                         <TableColumn fx:id="personNameColumn" prefWidth="140.0" text="Name" />
+                         <TableColumn fx:id="moveInDateColumn" prefWidth="110.39996337890625" text="Move-In Date" />
+                         <TableColumn fx:id="moveoutDateColumn" prefWidth="110.39996337890625" text="Move-Out Date" />
+                         <TableColumn fx:id="balanceDueColumn" prefWidth="99.0" text="Balance Due" />
+                         <TableColumn editable="false" minWidth="0.0" prefWidth="0.0" sortable="false" styleClass="padding-column" />
+                     </columns>
+                 </TableView>
+             </center>
+         </BorderPane>
+         <BorderPane>
+             <center>
+                 <TableView fx:id="billTable" stylesheets="@css/jfx-table-view.css">
+                     <columns>
+                         <TableColumn editable="false" prefWidth="140.0" sortable="false" styleClass="padding-column" />
+                         <TableColumn fx:id="billNameColumn" prefWidth="150.0" text="Bill" />
+                         <TableColumn fx:id="startDateColumn" prefWidth="100.0" text="Start Date" />
+                         <TableColumn fx:id="endDateColumn" prefWidth="100.0" text="End Date" />
+                         <TableColumn fx:id="totalColumn" prefWidth="75.0" text="Total" />
+                         <TableColumn editable="false" prefWidth="140.0" sortable="false" styleClass="padding-column" />
+                     </columns>
+                 </TableView>
+             </center>
+             <left>
+                 <ToolBar orientation="VERTICAL" prefWidth="45.0" BorderPane.alignment="CENTER">
+                     <JFXButton fx:id="addBillButton" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" styleClass="flat-button" text="Button">
+                         <graphic>
+                             <FontAwesomeIconView glyphName="PLUS" />
+                         </graphic>
+                     </JFXButton>
+                     <JFXButton fx:id="removeBillButton" contentDisplay="GRAPHIC_ONLY" styleClass="flat-button">
+                         <graphic>
+                             <FontAwesomeIconView glyphName="MINUS" />
+                         </graphic>
+                     </JFXButton>
+                 </ToolBar>
+             </left>
+         </BorderPane>
         <JFXButton fx:id="newCalculateButton" mnemonicParsing="false" styleClass="raised-button" text="Calculate Bill&#10; Breakdown" />
       <VBox.margin>
          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
