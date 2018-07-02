@@ -1,12 +1,11 @@
 package tech.ugma.brorater;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -28,6 +27,11 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
+
+
+    @FXML // fx:id="wholeApp"
+    private StackPane wholeApp; // Value injected by FXMLLoader
+
     @FXML
     private MenuItem saveMenuItem;
 
@@ -376,23 +380,19 @@ public class Controller implements Initializable {
     }
 
     private void setUpAddPersonButton() {
-        Dialog<Person> newPersonDialog = setUpNewPersonDialog();
+        JFXDialog newPersonDialog = setUpNewPersonDialog();
 
-        addPersonButton.setOnAction(event -> {
-            Optional<Person> result = newPersonDialog.showAndWait();
-
-            result.ifPresent(person -> {
-                // Add person to person list
-                personTable.getItems().add(person);
-                // Persist person to storage
-
-            });
-        });
-
+        addPersonButton.setOnAction(event -> newPersonDialog.show());
     }
 
-    private Dialog<Person> setUpNewPersonDialog() {
-        Dialog<Person> dialog = new Dialog<>();
+    private JFXDialog setUpNewPersonDialog() {
+        JFXDialog dialog = new JFXDialog();
+
+        dialog.setDialogContainer(wholeApp);
+
+        JFXDialogLayout layout = new JFXDialogLayout();
+
+        layout.setHeading(new Label("New Person"));
 
         JFXTextField nameTextField = new JFXTextField();
         nameTextField.setPromptText("Name");
@@ -404,29 +404,32 @@ public class Controller implements Initializable {
         moveOutDatePicker.setPromptText("Move-Out Date");
 
         VBox vBox = new VBox(nameTextField, moveInDatePicker, moveOutDatePicker);
-        vBox.setSpacing(10);
+        vBox.setSpacing(20);
 
+        layout.setBody(vBox);
 
-        dialog.getDialogPane().setContent(vBox);
+        JFXButton okButton = new JFXButton("OK");
+        okButton.setOnAction(event -> {
+            // Make and return a person
+            Person person = new Person();
+            person.setName(nameTextField.getText());
+            person.setMoveInDate(moveInDatePicker.getValue());
+            person.setMoveOutDate(moveOutDatePicker.getValue());
+            personTable.getItems().add(person);
 
-        dialog.setResultConverter(buttonType -> {
-
-            if (ButtonType.OK.equals(buttonType)) {
-                // Make and return a person
-                Person person = new Person();
-                person.setName(nameTextField.getText());
-                person.setMoveInDate(moveInDatePicker.getValue());
-                person.setMoveOutDate(moveOutDatePicker.getValue());
-                return person;
-            }
-
-            return null;
+            dialog.close();
         });
+        okButton.getStyleClass().add("flat-button");
+        layout.getActions().add(okButton);
 
-        dialog.getDialogPane().getButtonTypes().addAll(
-                ButtonType.OK,
-                ButtonType.CANCEL
-        );
+        JFXButton cancelButton = new JFXButton("CANCEL");
+        cancelButton.setOnAction(event -> dialog.close());
+        cancelButton.getStyleClass().add("flat-button");
+        layout.getActions().add(cancelButton);
+
+
+        dialog.setContent(layout);
+
         // Return the dialog
         return dialog;
     }
