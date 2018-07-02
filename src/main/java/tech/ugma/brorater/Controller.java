@@ -363,6 +363,8 @@ public class Controller implements Initializable {
                     System.out.println(bill.getName() + " cost per day: " + bill.getCostPerDay());
                     // Get the bills cost per day and divide it by the number of people
                     // FIXME: 7/2/2018 What do you do when there are zero people in the house?
+                    // FIXME: 7/2/2018 Maybe if there are zero people, I can add a nobody to the list and then
+                    // FIXME: 7/2/2018 charge it all to their account.
                     BigDecimal costPerPersonPerDay =
                             bill.getCostPerDay().divide(BigDecimal.valueOf(inHouse.size()), 10, RoundingMode.HALF_UP);
                     System.out.println("Divided among " + inHouse.size() + " people: " + costPerPersonPerDay);

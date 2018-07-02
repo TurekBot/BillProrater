@@ -17,6 +17,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Tooltip?>
 <StackPane fx:id="wholeApp" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tech.ugma.brorater.Controller">
     <BorderPane>
         <top>
@@ -52,8 +53,14 @@
                                             <graphic>
                                                 <FontAwesomeIconView glyphName="PLUS" />
                                             </graphic>
+                                            <tooltip>
+                                                <Tooltip text="Click here to add a person."/>
+                                            </tooltip>
                                         </JFXButton>
                                         <JFXButton fx:id="removePersonButton" contentDisplay="GRAPHIC_ONLY" styleClass="flat-button">
+                                            <tooltip>
+                                                <Tooltip text="Click here to remove the person selected in the table."/>
+                                            </tooltip>
                                             <graphic>
                                                 <FontAwesomeIconView glyphName="MINUS" />
                                             </graphic>
@@ -104,11 +111,17 @@
                                             <graphic>
                                                 <FontAwesomeIconView glyphName="PLUS" />
                                             </graphic>
+                                            <tooltip>
+                                                <Tooltip text="Click here to add a bill."/>
+                                            </tooltip>
                                         </JFXButton>
                                         <JFXButton fx:id="removeBillButton" contentDisplay="GRAPHIC_ONLY" styleClass="flat-button">
                                             <graphic>
                                                 <FontAwesomeIconView glyphName="MINUS" />
                                             </graphic>
+                                            <tooltip>
+                                                <Tooltip text="Click here to remove the bill selected in the table."/>
+                                            </tooltip>
                                         </JFXButton>
                                     </ToolBar>
                                 </left>
@@ -119,6 +132,9 @@
                         </right>
                         <bottom>
                             <JFXButton fx:id="calculateBreakdownButton" mnemonicParsing="false" prefWidth="400.0" styleClass="raised-button" text="Calculate Bill&#10; Breakdown" BorderPane.alignment="CENTER">
+                                <tooltip>
+                                    <Tooltip text="Click here to calculate how much each person owes, based on which days they were occupying the building."/>
+                                </tooltip>
                                 <BorderPane.margin>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                 </BorderPane.margin>
