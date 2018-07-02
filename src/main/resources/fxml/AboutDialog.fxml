@@ -14,7 +14,7 @@
     <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0">
         <VBox>
             <HBox alignment="CENTER_LEFT">
-                <Text text="This icon was brought to you by" />
+                <Text text="The following icon was brought to you by" />
                 <Hyperlink contentDisplay="GRAPHIC_ONLY" onAction="#linkToIcons8" text="Icons8">
                     <graphic>
                         <ImageView pickOnBounds="true" preserveRatio="true">
@@ -32,7 +32,7 @@
         </VBox>
         <VBox>
             <HBox alignment="CENTER_LEFT">
-                <Text text="These icons were brought to you by" />
+                <Text text="The following icons were brought to you by" />
                 <Hyperlink contentDisplay="GRAPHIC_ONLY" onAction="#linkToFontAwesome" text="FontAwesome">
                     <graphic>
                         <ImageView fitWidth="150.0" pickOnBounds="true" preserveRatio="true">

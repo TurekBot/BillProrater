@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -26,7 +27,6 @@ import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -248,7 +248,42 @@ public class Controller implements Initializable {
         JFXDatePicker endDatePicker = new JFXDatePicker();
         endDatePicker.setPromptText("End Date");
 
-        VBox vBox = new VBox(label, startDatePicker, endDatePicker);
+        JFXButton lastMonthButton = new JFXButton("LAST MONTH");
+        lastMonthButton.getStyleClass().add("flat-button");
+        lastMonthButton.setOnAction(event -> {
+            /* Solution courtesy of Jon Skeet: https://stackoverflow.com/a/22223886/5432315*/
+            LocalDate initial = LocalDate.now().minusMonths(1);
+            LocalDate start = initial.withDayOfMonth(1);
+            startDatePicker.setValue(start);
+            LocalDate end = initial.withDayOfMonth(initial.lengthOfMonth());
+            endDatePicker.setValue(end);
+        });
+
+        JFXButton allBillsButton = new JFXButton("ALL BILLS");
+        allBillsButton.getStyleClass().add("flat-button");
+        allBillsButton.setOnAction(event -> {
+            Bill firstBill = billTable.getItems().get(0);
+            LocalDate earliest = firstBill.getStartDate();
+            LocalDate latest = firstBill.getEndDate();
+            for (Bill bill :
+                    billTable.getItems()) {
+                if (bill.getStartDate().isBefore(earliest)) {
+                    earliest = bill.getStartDate();
+                }
+                if (bill.getEndDate().isAfter(latest)) {
+                    latest = bill.getEndDate();
+                }
+            }
+
+            startDatePicker.setValue(earliest);
+            endDatePicker.setValue(latest);
+
+        });
+
+        HBox commonOptions = new HBox(lastMonthButton, allBillsButton);
+        commonOptions.setSpacing(20);
+
+        VBox vBox = new VBox(label, startDatePicker, endDatePicker, commonOptions);
         vBox.setSpacing(20);
 
         layout.setBody(vBox);
