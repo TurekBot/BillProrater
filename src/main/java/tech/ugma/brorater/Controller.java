@@ -1,6 +1,7 @@
 package tech.ugma.brorater;
 
 import com.jfoenix.controls.*;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,7 +48,9 @@ public class Controller implements Initializable {
     @FXML
     private Label saveMenuItem;
 
-    public JFXButton newCalculateButton;
+    @FXML
+    private JFXButton calculateBreakdownButton;
+
     @FXML
     private MenuItem exportMenuButton;
 
@@ -294,7 +297,7 @@ public class Controller implements Initializable {
             range.setStartDate(startDatePicker.getValue());
             range.setEndDate(endDatePicker.getValue());
 
-            calculateBroration(range, personTable.getItems(), billTable.getItems());
+            calculateBreakdown(range, personTable.getItems(), billTable.getItems());
 
             dialog.close();
         });
@@ -314,12 +317,21 @@ public class Controller implements Initializable {
     }
 
     private void setUpCalculateButton() {
-        JFXDialog newCalculateDialog = setUpCalculateDialog();
+        JFXDialog calculateBreakdownDialog = setUpCalculateDialog();
 
-        newCalculateButton.setOnAction(event -> newCalculateDialog.show());
+        calculateBreakdownButton.setOnAction(event -> calculateBreakdownDialog.show());
+
+        calculateBreakdownButton.setDisable(true);
+        billTable.getItems().addListener((ListChangeListener<Bill>) c -> {
+            if (billTable.getItems().size() > 0) {
+                calculateBreakdownButton.setDisable(false);
+            } else {
+                calculateBreakdownButton.setDisable(true);
+            }
+        });
     }
 
-    private void calculateBroration(Range range, ObservableList<Person> people, ObservableList<Bill> bills) {
+    private void calculateBreakdown(Range range, ObservableList<Person> people, ObservableList<Bill> bills) {
         // Reset every person's balance due because we're doing a brand new calculation
         people.forEach(person -> person.setBalanceDue(BigDecimal.ZERO));
 
@@ -350,6 +362,7 @@ public class Controller implements Initializable {
                         && (bill.getEndDate().isEqual(current) || bill.getEndDate().isAfter(current))) {
                     System.out.println(bill.getName() + " cost per day: " + bill.getCostPerDay());
                     // Get the bills cost per day and divide it by the number of people
+                    // FIXME: 7/2/2018 What do you do when there are zero people in the house?
                     BigDecimal costPerPersonPerDay =
                             bill.getCostPerDay().divide(BigDecimal.valueOf(inHouse.size()), 10, RoundingMode.HALF_UP);
                     System.out.println("Divided among " + inHouse.size() + " people: " + costPerPersonPerDay);
@@ -363,7 +376,8 @@ public class Controller implements Initializable {
             BigDecimal finalCostOfUtilitiesPerPersonForToday = costOfUtilitiesPerPersonForToday;
             inHouse.forEach(person ->
                     person.setBalanceDue(
-                            person.getBalanceDue().add(finalCostOfUtilitiesPerPersonForToday)));
+                            person.getBalanceDue().add(finalCostOfUtilitiesPerPersonForToday))
+            );
 
 
             // Go to the next day

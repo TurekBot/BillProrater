@@ -118,7 +118,7 @@
                             </BorderPane>
                         </right>
                         <bottom>
-                            <JFXButton fx:id="newCalculateButton" mnemonicParsing="false" prefWidth="400.0" styleClass="raised-button" text="Calculate Bill&#10; Breakdown" BorderPane.alignment="CENTER">
+                            <JFXButton fx:id="calculateBreakdownButton" mnemonicParsing="false" prefWidth="400.0" styleClass="raised-button" text="Calculate Bill&#10; Breakdown" BorderPane.alignment="CENTER">
                                 <BorderPane.margin>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                 </BorderPane.margin>
