@@ -364,18 +364,9 @@ public class Controller implements Initializable {
     }
 
     private void setUpAddBillButton() {
-        Dialog<Bill> newBillDialog = setUpNewBillDialog();
+        JFXDialog newBillDialog = setUpNewBillDialog();
 
-        addBillButton.setOnAction(event -> {
-            Optional<Bill> result = newBillDialog.showAndWait();
-
-            result.ifPresent(bill -> {
-                // Add bill to bill list
-                billTable.getItems().add(bill);
-                // Persist bill to storage
-
-            });
-        });
+        addBillButton.setOnAction(event -> newBillDialog.show());
 
     }
 
@@ -434,11 +425,18 @@ public class Controller implements Initializable {
         return dialog;
     }
 
-    private Dialog<Bill> setUpNewBillDialog() {
+    private JFXDialog setUpNewBillDialog() {
 
-        Dialog<Bill> dialog = new Dialog<>();
-        JFXTextField nameTF = new JFXTextField();
-        nameTF.setPromptText("Bill Name");
+        JFXDialog dialog = new JFXDialog();
+
+        dialog.setDialogContainer(wholeApp);
+
+        JFXDialogLayout layout = new JFXDialogLayout();
+
+        layout.setHeading(new Label("New Bill"));
+
+        JFXTextField nameTextField = new JFXTextField();
+        nameTextField.setPromptText("Bill Name");
 
         JFXDatePicker startDatePicker = new JFXDatePicker();
         startDatePicker.setPromptText("Start Date");
@@ -446,31 +444,34 @@ public class Controller implements Initializable {
         JFXDatePicker endDatePicker = new JFXDatePicker();
         endDatePicker.setPromptText("End Date");
 
-        JFXTextField totalTF = new JFXTextField();
-        totalTF.setPromptText("Total");
+        JFXTextField totalTextField = new JFXTextField();
+        totalTextField.setPromptText("Total");
 
-        VBox vBox = new VBox(nameTF, startDatePicker, endDatePicker, totalTF);
-        vBox.setSpacing(10);
+        VBox vBox = new VBox(nameTextField, startDatePicker, endDatePicker, totalTextField);
+        vBox.setSpacing(20);
 
-        dialog.getDialogPane().setContent(vBox);
+        layout.setBody(vBox);
 
-        dialog.getDialogPane().getButtonTypes().addAll(
-                ButtonType.OK,
-                ButtonType.CANCEL
-        );
+        JFXButton okButton = new JFXButton("OK");
+        okButton.setOnAction(event -> {
+            Bill bill = new Bill();
+            bill.setName(nameTextField.getText().trim());
+            bill.setStartDate(startDatePicker.getValue());
+            bill.setEndDate(endDatePicker.getValue());
+            bill.setTotal(Double.parseDouble(totalTextField.getText().trim()));
+            billTable.getItems().add(bill);
 
-        dialog.setResultConverter(param -> {
-            if (ButtonType.OK.equals(param)) {
-                Bill bill = new Bill();
-                bill.setName(nameTF.getText().trim());
-                bill.setStartDate(startDatePicker.getValue());
-                bill.setEndDate(endDatePicker.getValue());
-                bill.setTotal(Double.parseDouble(totalTF.getText().trim()));
-                return bill;
-            } else
-                return null;
+            dialog.close();
         });
+        okButton.getStyleClass().add("flat-button");
+        layout.getActions().add(okButton);
 
+        JFXButton cancelButton = new JFXButton("CANCEL");
+        cancelButton.setOnAction(event -> dialog.close());
+        cancelButton.getStyleClass().add("flat-button");
+        layout.getActions().add(cancelButton);
+
+        dialog.setContent(layout);
 
         // Return the dialog
         return dialog;
