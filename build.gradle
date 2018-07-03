@@ -1,24 +1,32 @@
+// If you're wondering why there is no "apply plugin: " here, see this: https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow
 plugins {
     id 'java'
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '1.2.3'
+    id "edu.sc.seis.launch4j" version "2.4.3"
 }
 
+group 'tech.ugma.brorater'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
-mainClassName = 'tech.ugma.brorater.Brorater'
+// This automatically configures the jar and shadowJar tasks to include the Main-Class attribute in the jar's manifest.
+// See the following link for details. http://imperceptiblethoughts.com/shadow/#integrating_with_application_plugin
+mainClassName = "tech.ugma.brorater.Brorater"
 
-repositories {
-    mavenCentral()
+// This makes it so Unicode characters (like '—') display correctly. Credit: http://blog.ehrnhoefer.com/2015-02-28-gradle-sourcefile-encoding/
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
 }
-
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-}
-version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
+launch4j {
+    /*See website for details: */
+    mainClassName = project.mainClassName
+    copyConfigurable = project.tasks.shadowJar.outputs.files
+    jar = "lib/${project.tasks.shadowJar.archiveName}"
+    icon = "${projectDir}\\src\\main\\resources\\images\\app-icons\\UtilityBillSplitter.ico"
+}
 repositories {
     jcenter()
     mavenCentral()

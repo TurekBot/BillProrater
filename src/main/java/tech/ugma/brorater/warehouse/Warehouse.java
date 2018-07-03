@@ -3,6 +3,7 @@ package tech.ugma.brorater.warehouse;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableView;
+import tech.ugma.brorater.Brorater;
 import tech.ugma.brorater.model.Bill;
 import tech.ugma.brorater.model.Person;
 import tech.ugma.brorater.model.StorageContainer;
@@ -21,6 +22,9 @@ public class Warehouse {
      */
     public static void loadDataFromFile(File file, TableView<Person> personTable, TableView<Bill> billTable) {
         try {
+            // Save file path in preferences
+            Brorater.preferences.put("lastFile", file.getPath());
+
             JAXBContext context = JAXBContext
                     .newInstance(StorageContainer.class);
             Unmarshaller um = context.createUnmarshaller();
@@ -55,6 +59,9 @@ public class Warehouse {
      */
     public static void savePersonDataToFile(File file, TableView<Person> personTable, TableView<Bill> billTable) {
         try {
+            // Save file path in preferences
+            Brorater.preferences.put("lastFile", file.getPath());
+
             JAXBContext context = JAXBContext
                     .newInstance(StorageContainer.class);
             Marshaller m = context.createMarshaller();

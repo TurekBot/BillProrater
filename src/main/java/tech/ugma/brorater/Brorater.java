@@ -9,8 +9,16 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.util.prefs.Preferences;
+
 public class Brorater extends Application {
     public static HostServices hostServices;
+
+    /**
+     * Saves the last opened or saved file to open next time.
+     */
+    public static Preferences preferences = Preferences.userNodeForPackage(Brorater.class);
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {

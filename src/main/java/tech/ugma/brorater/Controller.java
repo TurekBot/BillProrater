@@ -135,10 +135,22 @@ public class Controller implements Initializable {
         setUpNavIcon();
         setUpCalculateButton();
 
-        loadLastOpenedFile();
+        loadLastOpenedOrSavedFile();
     }
 
-    private void loadLastOpenedFile() {
+    private void loadLastOpenedOrSavedFile() {
+        String lastFile = Brorater.preferences.get("lastFile", null);
+        String message = "No last opened/saved file found.";
+        if (lastFile != null) {
+            File file = new File(lastFile);
+            if (file.exists()) {
+                Warehouse.loadDataFromFile(file, personTable, billTable);
+            } else {
+                System.out.println(message);
+            }
+        } else {
+            System.out.println(message);
+        }
 
     }
 
