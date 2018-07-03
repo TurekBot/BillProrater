@@ -134,6 +134,12 @@ public class Controller implements Initializable {
         setUpSideMenu();
         setUpNavIcon();
         setUpCalculateButton();
+
+        loadLastOpenedFile();
+    }
+
+    private void loadLastOpenedFile() {
+
     }
 
     private void setUpNavIcon() {
@@ -155,66 +161,78 @@ public class Controller implements Initializable {
         menu1.getSelectionModel().selectedItemProperty().addListener((observable, wasSelected, selected) -> {
             Label label = (Label) selected;
             if (label.equals(openMenuItem)) {
-                fileChooser.setTitle("Choose an XML file containing Person and Bill data");
-
-                // This only allows the user to select "*.xml" files
-                FileChooser.ExtensionFilter filter =
-                        new FileChooser.ExtensionFilter("XML files", "*.xml");
-
-                fileChooser.getExtensionFilters().clear();
-                fileChooser.getExtensionFilters().add(filter);
-
-                // Passing in the primaryStage makes it so that any input to the rest
-                // of the windows is blocked: the user can only interact with the FileChooser
-                File file = fileChooser.showOpenDialog(primaryStage);
-
-                if (file != null) {
-                    Warehouse.loadDataFromFile(file, personTable, billTable);
-                }
+                openFile();
 
             } else if (label.equals(saveMenuItem)) {
-                fileChooser.setTitle("Save Brorate project");
-
-                // This only allows the user to select "*.xml" files
-                FileChooser.ExtensionFilter filter =
-                        new FileChooser.ExtensionFilter("XML files", "*.xml");
-
-                fileChooser.getExtensionFilters().clear();
-                fileChooser.getExtensionFilters().add(filter);
-
-
-                // Passing in the primaryStage makes it so that any input to the rest
-                // of the windows is blocked: the user can only interact with the FileChoose
-                File saveFile = fileChooser.showSaveDialog(primaryStage);
-
-                if (saveFile != null) {
-                    Warehouse.savePersonDataToFile(saveFile, personTable, billTable);
-                }
+                saveFile();
 
             } else if (label.equals(aboutMenuItem)) {
-                drawer.close();
-                try {
-                    JFXDialog aboutDialog = new JFXDialog();
-                    aboutDialog.setDialogContainer(wholeApp);
-
-                    FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/fxml/AboutDialog.fxml"));
-                    Region content = loader.load();
-                    JFXDialogLayout layout = new JFXDialogLayout();
-                    layout.setHeading(new Label("About Bill Prorater"));
-                    layout.setBody(content);
-                    aboutDialog.setContent(layout);
-
-                    aboutDialog.setMinWidth(900);
-                    aboutDialog.show();
-                } catch (IOException e) {
-                    System.err.println("There was a problem while loading the FXML of the About Dialog");
-                    e.printStackTrace();
-//                    failGracefully();
-                }
+                showAboutDialog();
 
             }
         });
 
+    }
+
+    private void showAboutDialog() {
+        drawer.close();
+        try {
+            JFXDialog aboutDialog = new JFXDialog();
+            aboutDialog.setDialogContainer(wholeApp);
+
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/fxml/AboutDialog.fxml"));
+            Region content = loader.load();
+            JFXDialogLayout layout = new JFXDialogLayout();
+            layout.setHeading(new Label("About Bill Prorater"));
+            layout.setBody(content);
+            aboutDialog.setContent(layout);
+
+            aboutDialog.setMinWidth(900);
+            aboutDialog.show();
+        } catch (IOException e) {
+            System.err.println("There was a problem while loading the FXML of the About Dialog");
+            e.printStackTrace();
+//                    failGracefully();
+        }
+    }
+
+    private void saveFile() {
+        fileChooser.setTitle("Save Brorate project");
+
+        // This only allows the user to select "*.xml" files
+        FileChooser.ExtensionFilter filter =
+                new FileChooser.ExtensionFilter("XML files", "*.xml");
+
+        fileChooser.getExtensionFilters().clear();
+        fileChooser.getExtensionFilters().add(filter);
+
+
+        // Passing in the primaryStage makes it so that any input to the rest
+        // of the windows is blocked: the user can only interact with the FileChoose
+        File saveFile = fileChooser.showSaveDialog(primaryStage);
+
+        if (saveFile != null) {
+            Warehouse.savePersonDataToFile(saveFile, personTable, billTable);
+        }
+    }
+
+    private void openFile() {
+        fileChooser.setTitle("Choose an XML file containing Person and Bill data");
+
+        // This only allows the user to select "*.xml" files
+        FileChooser.ExtensionFilter filter =
+                new FileChooser.ExtensionFilter("XML files", "*.xml");
+
+        fileChooser.getExtensionFilters().clear();
+        fileChooser.getExtensionFilters().add(filter);
+
+        // Passing in the primaryStage makes it so that any input to the rest
+        // of the windows is blocked: the user can only interact with the FileChooser
+        File file = fileChooser.showOpenDialog(primaryStage);
+
+        if (file != null) {
+            Warehouse.loadDataFromFile(file, personTable, billTable);
+        }
     }
 
     private void setUpRemoveBillButton() {
