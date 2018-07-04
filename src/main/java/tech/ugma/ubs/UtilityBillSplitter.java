@@ -1,4 +1,4 @@
-package tech.ugma.brorater;
+package tech.ugma.ubs;
 
 import javafx.application.Application;
 import javafx.application.HostServices;
@@ -11,13 +11,13 @@ import javafx.stage.Stage;
 
 import java.util.prefs.Preferences;
 
-public class Brorater extends Application {
+public class UtilityBillSplitter extends Application {
     public static HostServices hostServices;
 
     /**
      * Saves the last opened or saved file to open next time.
      */
-    public static Preferences preferences = Preferences.userNodeForPackage(Brorater.class);
+    public static Preferences preferences = Preferences.userNodeForPackage(UtilityBillSplitter.class);
 
 
     @Override
@@ -33,12 +33,12 @@ public class Brorater extends Application {
 
         // Apply CSS
         final ObservableList<String> stylesheets = scene.getStylesheets();
-        stylesheets.addAll(Brorater.class.getResource("/css/jfoenix-fonts.css").toExternalForm(),
-                Brorater.class.getResource("/css/colors.css").toExternalForm(),
-                Brorater.class.getResource("/css/brotater-styles.css").toExternalForm());
+        stylesheets.addAll(UtilityBillSplitter.class.getResource("/css/jfoenix-fonts.css").toExternalForm(),
+                UtilityBillSplitter.class.getResource("/css/colors.css").toExternalForm(),
+                UtilityBillSplitter.class.getResource("/css/brotater-styles.css").toExternalForm());
 
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Bill Prorater");
+        primaryStage.setTitle("Utility Bill Splitter");
 
         // Add icons; JavaFX will decide which one is best, depending on where the icon is showing
         try {

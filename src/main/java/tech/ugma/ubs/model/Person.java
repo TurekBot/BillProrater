@@ -1,4 +1,4 @@
-package tech.ugma.brorater.model;
+package tech.ugma.ubs.model;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

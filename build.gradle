@@ -6,12 +6,12 @@ plugins {
     id "edu.sc.seis.launch4j" version "2.4.3"
 }
 
-group 'tech.ugma.brorater'
+group 'tech.ugma.ubs'
 version '1.0-SNAPSHOT'
 
 // This automatically configures the jar and shadowJar tasks to include the Main-Class attribute in the jar's manifest.
 // See the following link for details. http://imperceptiblethoughts.com/shadow/#integrating_with_application_plugin
-mainClassName = "tech.ugma.brorater.Brorater"
+mainClassName = "tech.ugma.ubs.UtilityBillSplitter"
 
 // This makes it so Unicode characters (like '—') display correctly. Credit: http://blog.ehrnhoefer.com/2015-02-28-gradle-sourcefile-encoding/
 tasks.withType(JavaCompile) {

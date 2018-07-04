@@ -1,4 +1,4 @@
-package tech.ugma.brorater;
+package tech.ugma.ubs;
 
 import com.jfoenix.controls.*;
 import javafx.collections.ListChangeListener;
@@ -13,10 +13,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import tech.ugma.brorater.model.Bill;
-import tech.ugma.brorater.model.Person;
-import tech.ugma.brorater.model.Range;
-import tech.ugma.brorater.warehouse.Warehouse;
+import tech.ugma.ubs.model.Bill;
+import tech.ugma.ubs.model.Person;
+import tech.ugma.ubs.model.Range;
+import tech.ugma.ubs.warehouse.Warehouse;
 
 import java.io.File;
 import java.io.IOException;
@@ -120,8 +120,6 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("I'm here!");
-
         setUpAddPersonButton();
         setUpRemovePersonButton();
         setUpPersonTable();
@@ -139,7 +137,7 @@ public class Controller implements Initializable {
     }
 
     private void loadLastOpenedOrSavedFile() {
-        String lastFile = Brorater.preferences.get("lastFile", null);
+        String lastFile = UtilityBillSplitter.preferences.get("lastFile", null);
         String message = "No last opened/saved file found.";
         if (lastFile != null) {
             File file = new File(lastFile);
@@ -195,7 +193,7 @@ public class Controller implements Initializable {
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/fxml/AboutDialog.fxml"));
             Region content = loader.load();
             JFXDialogLayout layout = new JFXDialogLayout();
-            layout.setHeading(new Label("About Bill Prorater"));
+            layout.setHeading(new Label("About Utility Bill Splitter"));
             layout.setBody(content);
             aboutDialog.setContent(layout);
 

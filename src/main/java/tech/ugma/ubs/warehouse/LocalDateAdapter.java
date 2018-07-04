@@ -1,4 +1,4 @@
-package tech.ugma.brorater.warehouse;
+package tech.ugma.ubs.warehouse;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.time.LocalDate;

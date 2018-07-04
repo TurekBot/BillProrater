@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.Tooltip?>
-<StackPane fx:id="wholeApp" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tech.ugma.brorater.Controller">
+<StackPane fx:id="wholeApp" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tech.ugma.ubs.Controller">
     <BorderPane>
         <top>
             <JFXToolbar minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
@@ -29,7 +29,7 @@
                                 <JFXHamburger fx:id="navIcon" />
                             </StackPane>
                         </JFXRippler>
-                        <!--<Label fx:id="toolbarTitle" styleClass="title" text="Brorater"/>-->
+                        <Label fx:id="toolbarTitle" styleClass="title" text="Utility Bill Splitter"/>
                     </HBox>
                 </left>
             </JFXToolbar>
@@ -68,7 +68,7 @@
                                     </ToolBar>
                                 </left>
                                 <center>
-                                    <TableView fx:id="personTable" stylesheets="@../css/jfx-table-view.css">
+                                    <TableView prefWidth="500" fx:id="personTable" stylesheets="@../css/jfx-table-view.css">
                                         <columns>
                                             <TableColumn editable="false" prefWidth="140.0" sortable="false" styleClass="padding-column" />
                                             <TableColumn fx:id="personNameColumn" prefWidth="140.0" text="Name" />
@@ -94,7 +94,7 @@
                                     </Label>
                                 </top>
                                 <center>
-                                    <TableView fx:id="billTable" stylesheets="@../css/jfx-table-view.css">
+                                    <TableView prefWidth="500" fx:id="billTable" stylesheets="@../css/jfx-table-view.css">
                                         <columns>
                                             <TableColumn editable="false" prefWidth="140.0" sortable="false" styleClass="padding-column" />
                                             <TableColumn fx:id="billNameColumn" prefWidth="150.0" text="Bill" />
@@ -163,7 +163,7 @@
                                 </graphic>
                                 Buttons
                             </Label>
-                            <Label fx:id="aboutMenuItem" text="About Brorater">
+                            <Label fx:id="aboutMenuItem" text="About Utility Bill Splitter">
                                 <graphic>
                                     <!--We need to use an "icon container" so that each icon will take up the same amount of room. -->
                                     <StackPane styleClass="icon-container">

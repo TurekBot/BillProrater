@@ -1,4 +1,4 @@
-package tech.ugma.brorater.model;
+package tech.ugma.ubs.model;
 
 import java.time.LocalDate;
 

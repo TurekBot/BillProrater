@@ -1,12 +1,12 @@
-package tech.ugma.brorater.warehouse;
+package tech.ugma.ubs.warehouse;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableView;
-import tech.ugma.brorater.Brorater;
-import tech.ugma.brorater.model.Bill;
-import tech.ugma.brorater.model.Person;
-import tech.ugma.brorater.model.StorageContainer;
+import tech.ugma.ubs.UtilityBillSplitter;
+import tech.ugma.ubs.model.Bill;
+import tech.ugma.ubs.model.Person;
+import tech.ugma.ubs.model.StorageContainer;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -23,7 +23,7 @@ public class Warehouse {
     public static void loadDataFromFile(File file, TableView<Person> personTable, TableView<Bill> billTable) {
         try {
             // Save file path in preferences
-            Brorater.preferences.put("lastFile", file.getPath());
+            UtilityBillSplitter.preferences.put("lastFile", file.getPath());
 
             JAXBContext context = JAXBContext
                     .newInstance(StorageContainer.class);
@@ -60,7 +60,7 @@ public class Warehouse {
     public static void savePersonDataToFile(File file, TableView<Person> personTable, TableView<Bill> billTable) {
         try {
             // Save file path in preferences
-            Brorater.preferences.put("lastFile", file.getPath());
+            UtilityBillSplitter.preferences.put("lastFile", file.getPath());
 
             JAXBContext context = JAXBContext
                     .newInstance(StorageContainer.class);

@@ -1,4 +1,4 @@
-package tech.ugma.brorater;
+package tech.ugma.ubs;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -38,9 +38,9 @@ class FirstPdf {
     // Reader
     // under File -> Properties
     private static void addMetaData(Document document) {
-        document.addTitle("Brorated Document");
-        document.addSubject("brorater document");
-        document.addKeywords("Java, PDF, iText, brorater");
+        document.addTitle("Utility Bill Breakdown");
+        document.addSubject("Utility Bill Breakdown");
+        document.addKeywords("Java, PDF, iText, Utility, Bill, Breakdown");
     }
 
     private static void addTitlePage(Document document)

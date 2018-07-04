@@ -3,9 +3,9 @@
 // This is where I found out about it: https://stackoverflow.com/questions/36156741/marshalling-localdate-using-jaxb
 @XmlJavaTypeAdapters(@XmlJavaTypeAdapter(type = LocalDate.class, value = LocalDateAdapter.class))
 
-package tech.ugma.brorater.model;
+package tech.ugma.ubs.model;
 
-import tech.ugma.brorater.warehouse.LocalDateAdapter;
+import tech.ugma.ubs.warehouse.LocalDateAdapter;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
