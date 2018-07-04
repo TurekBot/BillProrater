@@ -118,6 +118,12 @@ public class Controller implements Initializable {
      */
     private Stage primaryStage;
 
+    /**
+     * Used when there is nobody in the house to pay a bill.
+     */
+    private Person mrNobody = new Person();
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setUpAddPersonButton();
@@ -134,6 +140,13 @@ public class Controller implements Initializable {
         setUpCalculateButton();
 
         loadLastOpenedOrSavedFile();
+
+        setUpMrNobody();
+    }
+
+    private void setUpMrNobody() {
+        mrNobody.setName("NOBODY");
+        mrNobody.setBalanceDue(BigDecimal.ZERO);
     }
 
     private void loadLastOpenedOrSavedFile() {
@@ -362,6 +375,9 @@ public class Controller implements Initializable {
     private void calculateBreakdown(Range range, ObservableList<Person> people, ObservableList<Bill> bills) {
         // Reset every person's balance due because we're doing a brand new calculation
         people.forEach(person -> person.setBalanceDue(BigDecimal.ZERO));
+        mrNobody.setBalanceDue(BigDecimal.ZERO);
+        // Make sure Mr. Nobody is not in the list for this new calculation
+        personTable.getItems().remove(mrNobody);
 
 
         // Start at the beginning of the range and go all the way to the end of the range
@@ -386,17 +402,20 @@ public class Controller implements Initializable {
 
             // Check which bills fall within the day
             for (Bill bill : bills) {
+                // FIXME: 7/4/2018 use current's methods because we know current is not null.
                 if ((bill.getStartDate().isEqual(current) || bill.getStartDate().isBefore(current))
                         && (bill.getEndDate().isEqual(current) || bill.getEndDate().isAfter(current))) {
                     System.out.println(bill.getName() + " cost per day: " + bill.getCostPerDay());
                     // Get the bills cost per day and divide it by the number of people
-                    // FIXME: 7/2/2018 What do you do when there are zero people in the house?
-                    // FIXME: 7/2/2018 Maybe if there are zero people, I can add a nobody to the list and then
-                    // FIXME: 7/2/2018 charge it all to their account.
-                    BigDecimal costPerPersonPerDay =
-                            bill.getCostPerDay().divide(BigDecimal.valueOf(inHouse.size()), 10, RoundingMode.HALF_UP);
-                    System.out.println("Divided among " + inHouse.size() + " people: " + costPerPersonPerDay);
-
+                    BigDecimal costPerPersonPerDay;
+                    if (inHouse.size() > 0) {
+                        BigDecimal divisor = BigDecimal.valueOf(inHouse.size());
+                        costPerPersonPerDay = bill.getCostPerDay().divide(divisor, 10, RoundingMode.HALF_UP);
+                        System.out.println("Divided among " + inHouse.size() + " people: " + costPerPersonPerDay);
+                    } else {
+                        // If there is no one in the house, don't divide
+                        costPerPersonPerDay = bill.getCostPerDay();
+                    }
                     costOfUtilitiesPerPersonForToday = costOfUtilitiesPerPersonForToday.add(costPerPersonPerDay);
                 }
             }
@@ -409,6 +428,11 @@ public class Controller implements Initializable {
                             person.getBalanceDue().add(finalCostOfUtilitiesPerPersonForToday))
             );
 
+            if (inHouse.size() == 0) {
+                // Add price to mrNobody
+                mrNobody.setBalanceDue(mrNobody.getBalanceDue().add(finalCostOfUtilitiesPerPersonForToday));
+            }
+
 
             // Go to the next day
             current = current.plusDays(1);
@@ -418,6 +442,19 @@ public class Controller implements Initializable {
         // At the end, round each balance due to 2 decimal places
         for (Person person : people) {
             person.setBalanceDue(person.getBalanceDue().setScale(2, RoundingMode.HALF_UP));
+        }
+        if (mrNobody.getBalanceDue().doubleValue() > 0) {
+            // If mrNobody has a balance, add them to the list
+            personTable.getItems().add(mrNobody);
+            JFXSnackbar snackbar = new JFXSnackbar(wholeApp);
+            snackbar.show("Whoops. There's at least one day where there " +
+                    "are bills to be paid, but no one living in the house. Their sum " +
+                    "is listed under \"NOBODY\" in the table.", "GOTCHA",
+                    event -> snackbar.close());
+
+        } else {
+            // If they don't, take them off the list
+            personTable.getItems().remove(mrNobody);
         }
     }
 
