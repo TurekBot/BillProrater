@@ -74,7 +74,7 @@
                                             <TableColumn fx:id="personNameColumn" prefWidth="140.0" text="Name" />
                                             <TableColumn fx:id="moveInDateColumn" prefWidth="110.39996337890625" text="Move-In Date" />
                                             <TableColumn fx:id="moveoutDateColumn" prefWidth="110.39996337890625" text="Move-Out Date" />
-                                            <TableColumn fx:id="balanceDueColumn" prefWidth="99.0" text="Balance Due" />
+                                            <TableColumn fx:id="balanceDueColumn" styleClass="numeric-column" prefWidth="99.0" text="Balance Due" />
                                             <TableColumn editable="false" minWidth="0.0" prefWidth="0.0" sortable="false" styleClass="padding-column" />
                                         </columns>
                                     </TableView>

@@ -30,6 +30,10 @@
     -fx-faint-focus-color: transparent;
 }
 
+#balanceDueColumn {
+    -fx-background-color: rgb(0.0, 0.0, 0.0, 0.025);
+}
+
 /* When any button is hovered or pressed, it will have the hand cursor*/
 .jfx-button, .jfx-rippler {
     -fx-cursor: HAND;
