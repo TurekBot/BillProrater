@@ -1,6 +1,7 @@
 package tech.ugma.ubs;
 
 import com.jfoenix.controls.*;
+import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -156,6 +157,7 @@ public class Controller implements Initializable {
             File file = new File(lastFile);
             if (file.exists()) {
                 Warehouse.loadDataFromFile(file, personTable, billTable);
+                fileChooser.setInitialDirectory(file.getParentFile());
             } else {
                 System.out.println(message);
             }
@@ -182,16 +184,18 @@ public class Controller implements Initializable {
 
         //noinspection unchecked
         menu1.getSelectionModel().selectedItemProperty().addListener((observable, wasSelected, selected) -> {
-            Label label = (Label) selected;
-            if (label.equals(openMenuItem)) {
-                openFile();
-
-            } else if (label.equals(saveMenuItem)) {
-                saveFile();
-
-            } else if (label.equals(aboutMenuItem)) {
-                showAboutDialog();
-
+            if (selected != null) {
+                Label label = (Label) selected;
+                if (label.equals(openMenuItem)) {
+                    openFile();
+                } else if (label.equals(saveMenuItem)) {
+                    saveFile();
+                } else if (label.equals(aboutMenuItem)) {
+                    showAboutDialog();
+                }
+                // It's important to un-select the menu when you're done so that another
+                // (even the same selection) can be made.
+                Platform.runLater(() -> menu1.getSelectionModel().clearSelection());
             }
         });
 
