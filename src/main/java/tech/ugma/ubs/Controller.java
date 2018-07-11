@@ -145,6 +145,46 @@ public class Controller implements Initializable {
         setUpMrNobody();
     }
 
+    private void setUpShutdownHook(Stage primaryStage) {
+        primaryStage.setOnCloseRequest(closeEvent -> {
+
+
+            // Show dialog asking if the user wants to save
+            JFXAlert<Void> dialog = new JFXAlert<>(primaryStage);
+
+
+            JFXDialogLayout layout = new JFXDialogLayout();
+            layout.setHeading(new Label("Before you go..."));
+            layout.setBody(new Label("Do you want to save?"));
+            JFXButton okButton = new JFXButton("HOLD UP, LEMME SAVE");
+            okButton.setOnAction(actionEvent -> {
+                // If yes, open save dialog
+                dialog.close();
+                // Consuming the close event stops the shutdown.
+                closeEvent.consume();
+                saveFile();
+            });
+            okButton.getStyleClass().add("flat-button");
+            layout.getActions().add(okButton);
+
+            JFXButton closeButton = new JFXButton("NAH, I'M GOOD");
+            closeButton.setOnAction(event -> dialog.close());
+            closeButton.getStyleClass().add("flat-button");
+            layout.getActions().add(closeButton);
+            closeButton.setOnAction(event -> {
+                // Just close the dialog.
+                // Since the event is not consumed, the program will terminate.
+                dialog.close();
+            });
+
+
+            dialog.setContent(layout);
+
+            dialog.showAndWait();
+
+        });
+    }
+
     private void setUpMrNobody() {
         mrNobody.setName("NOBODY");
         mrNobody.setBalanceDue(BigDecimal.ZERO);
@@ -188,10 +228,13 @@ public class Controller implements Initializable {
                 Label label = (Label) selected;
                 if (label.equals(openMenuItem)) {
                     openFile();
+                    drawer.close();
                 } else if (label.equals(saveMenuItem)) {
                     saveFile();
+                    drawer.close();
                 } else if (label.equals(aboutMenuItem)) {
                     showAboutDialog();
+                    drawer.close();
                 }
                 // It's important to un-select the menu when you're done so that another
                 // (even the same selection) can be made.
@@ -202,7 +245,6 @@ public class Controller implements Initializable {
     }
 
     private void showAboutDialog() {
-        drawer.close();
         try {
             JFXDialog aboutDialog = new JFXDialog();
             aboutDialog.setDialogContainer(wholeApp);
@@ -666,6 +708,8 @@ public class Controller implements Initializable {
 
     void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        setUpShutdownHook(primaryStage);
+
     }
 
     Stage getPrimaryStage() {
