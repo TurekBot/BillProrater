@@ -18,10 +18,11 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.Tooltip?>
-<StackPane fx:id="wholeApp" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tech.ugma.ubs.Controller">
+<StackPane fx:id="wholeApp" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="tech.ugma.ubs.Controller">
     <BorderPane>
         <top>
-            <JFXToolbar minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
+            <JFXToolbar BorderPane.alignment="CENTER">
                 <left>
                     <HBox alignment="CENTER" BorderPane.alignment="CENTER">
                         <JFXRippler fx:id="navIconRippler" maskType="CIRCLE">
@@ -37,7 +38,7 @@
         <center>
             <JFXDrawer fx:id="drawer" defaultDrawerSize="300" direction="LEFT">
                 <content>
-                    <BorderPane>
+                    <BorderPane minWidth="100">
                         <left>
                             <BorderPane>
                                 <top>
@@ -181,14 +182,10 @@
                         </JFXListView>
                     </VBox>
                 </sidePane>
-            <BorderPane.margin>
-               <Insets />
-            </BorderPane.margin>
             <padding>
                <Insets top="20.0" />
             </padding>
             </JFXDrawer>
         </center>
     </BorderPane>
-
 </StackPane>
