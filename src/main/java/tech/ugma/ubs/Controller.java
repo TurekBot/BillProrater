@@ -338,6 +338,17 @@ public class Controller implements Initializable {
         JFXDatePicker endDatePicker = new JFXDatePicker();
         endDatePicker.setPromptText("End Date");
 
+        JFXButton thisMonthButton = new JFXButton("THIS MONTH");
+        thisMonthButton.getStyleClass().add("flat-button");
+        thisMonthButton.setOnAction(event -> {
+            /* Solution courtesy of Jon Skeet: https://stackoverflow.com/a/22223886/5432315*/
+            LocalDate today = LocalDate.now();
+            LocalDate start = today.withDayOfMonth(1);
+            startDatePicker.setValue(start);
+            LocalDate end = today.withDayOfMonth(today.lengthOfMonth());
+            endDatePicker.setValue(end);
+        });
+
         JFXButton lastMonthButton = new JFXButton("LAST MONTH");
         lastMonthButton.getStyleClass().add("flat-button");
         lastMonthButton.setOnAction(event -> {
@@ -370,7 +381,7 @@ public class Controller implements Initializable {
 
         });
 
-        HBox commonOptions = new HBox(lastMonthButton, allBillsButton);
+        HBox commonOptions = new HBox(thisMonthButton, lastMonthButton, allBillsButton);
         commonOptions.setSpacing(20);
 
         VBox vBox = new VBox(label, startDatePicker, endDatePicker, commonOptions);
