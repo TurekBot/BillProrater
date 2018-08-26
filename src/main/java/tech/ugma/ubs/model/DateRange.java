@@ -2,7 +2,7 @@ package tech.ugma.ubs.model;
 
 import java.time.LocalDate;
 
-public class Range {
+public class DateRange {
 
     private LocalDate startDate;
     private LocalDate endDate;

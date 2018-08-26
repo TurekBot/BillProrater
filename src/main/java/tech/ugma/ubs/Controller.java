@@ -15,8 +15,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import tech.ugma.ubs.model.Bill;
+import tech.ugma.ubs.model.DateRange;
 import tech.ugma.ubs.model.Person;
-import tech.ugma.ubs.model.Range;
 import tech.ugma.ubs.warehouse.Warehouse;
 
 import java.io.File;
@@ -349,17 +349,6 @@ public class Controller implements Initializable {
             endDatePicker.setValue(end);
         });
 
-        JFXButton lastMonthButton = new JFXButton("LAST MONTH");
-        lastMonthButton.getStyleClass().add("flat-button");
-        lastMonthButton.setOnAction(event -> {
-            /* Solution courtesy of Jon Skeet: https://stackoverflow.com/a/22223886/5432315*/
-            LocalDate initial = LocalDate.now().minusMonths(1);
-            LocalDate start = initial.withDayOfMonth(1);
-            startDatePicker.setValue(start);
-            LocalDate end = initial.withDayOfMonth(initial.lengthOfMonth());
-            endDatePicker.setValue(end);
-        });
-
         JFXButton allBillsButton = new JFXButton("ALL BILLS");
         allBillsButton.getStyleClass().add("flat-button");
         allBillsButton.setOnAction(event -> {
@@ -381,7 +370,20 @@ public class Controller implements Initializable {
 
         });
 
-        HBox commonOptions = new HBox(thisMonthButton, lastMonthButton, allBillsButton);
+        JFXButton lastMonthButton = new JFXButton("LAST MONTH");
+        lastMonthButton.getStyleClass().add("flat-button");
+        lastMonthButton.setOnAction(event -> {
+            /* Solution courtesy of Jon Skeet: https://stackoverflow.com/a/22223886/5432315*/
+            LocalDate initial = LocalDate.now().minusMonths(1);
+            LocalDate start = initial.withDayOfMonth(1);
+            startDatePicker.setValue(start);
+            LocalDate end = initial.withDayOfMonth(initial.lengthOfMonth());
+            endDatePicker.setValue(end);
+        });
+
+
+
+        HBox commonOptions = new HBox(thisMonthButton, allBillsButton, lastMonthButton);
         commonOptions.setSpacing(20);
 
         VBox vBox = new VBox(label, startDatePicker, endDatePicker, commonOptions);
@@ -389,18 +391,18 @@ public class Controller implements Initializable {
 
         layout.setBody(vBox);
 
-        JFXButton okButton = new JFXButton("OK");
-        okButton.setOnAction(event -> {
-            Range range = new Range();
-            range.setStartDate(startDatePicker.getValue());
-            range.setEndDate(endDatePicker.getValue());
+        JFXButton calculateButton = new JFXButton("CALCULATE");
+        calculateButton.setOnAction(event -> {
+            DateRange dateRange = new DateRange();
+            dateRange.setStartDate(startDatePicker.getValue());
+            dateRange.setEndDate(endDatePicker.getValue());
 
-            calculateBreakdown(range, personTable.getItems(), billTable.getItems());
+            calculateBreakdown(dateRange, personTable.getItems(), billTable.getItems());
 
             dialog.close();
         });
-        okButton.getStyleClass().add("flat-button");
-        layout.getActions().add(okButton);
+        calculateButton.getStyleClass().addAll("flat-button", "raised-button");
+        layout.getActions().add(calculateButton);
 
         JFXButton cancelButton = new JFXButton("CANCEL");
         cancelButton.setOnAction(event -> dialog.close());
@@ -429,7 +431,7 @@ public class Controller implements Initializable {
         });
     }
 
-    private void calculateBreakdown(Range range, ObservableList<Person> people, ObservableList<Bill> bills) {
+    private void calculateBreakdown(DateRange dateRange, ObservableList<Person> people, ObservableList<Bill> bills) {
         // Reset every person's balance due because we're doing a brand new calculation
         people.forEach(person -> person.setBalanceDue(BigDecimal.ZERO));
         mrNobody.setBalanceDue(BigDecimal.ZERO);
@@ -437,10 +439,10 @@ public class Controller implements Initializable {
         personTable.getItems().remove(mrNobody);
 
 
-        // Start at the beginning of the range and go all the way to the end of the range
-        LocalDate current = LocalDate.parse(range.getStartDate().toString());
+        // Start at the beginning of the dateRange and go all the way to the end of the dateRange
+        LocalDate current = LocalDate.parse(dateRange.getStartDate().toString());
         List<Person> inHouse = new ArrayList<>();
-        while (current.isBefore(range.getEndDate().plusDays(1))) {
+        while (current.isBefore(dateRange.getEndDate().plusDays(1))) {
             System.out.println("Current day: " + current.toString());
             inHouse.clear();
             BigDecimal costOfUtilitiesPerPersonForToday = BigDecimal.valueOf(0.00);
