@@ -15,6 +15,9 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.function.UnaryOperator;
 
+/**
+ * Based on the idea of James_D: https://stackoverflow.com/a/34701925/5432315
+ */
 public class EditableCurrencyCell<T> extends TableCell<T, BigDecimal> {
 
     private JFXTextField textField;

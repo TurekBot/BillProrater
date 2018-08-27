@@ -8,6 +8,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Callback;
 
+/**
+ * Based on the idea of James_D: https://stackoverflow.com/a/34701925/5432315
+ */
 public class EditableTextCell<T> extends TableCell<T, String> {
 
     private JFXTextField textField;
