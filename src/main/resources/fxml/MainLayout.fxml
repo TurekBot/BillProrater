@@ -95,7 +95,7 @@
                                     </Label>
                                 </top>
                                 <center>
-                                    <TableView prefWidth="500" fx:id="billTable" stylesheets="@../css/jfx-table-view.css">
+                                    <TableView prefWidth="500" fx:id="billTable" stylesheets="@../css/jfx-table-view.css" editable="true">
                                         <columns>
                                             <TableColumn editable="false" prefWidth="140.0" sortable="false" styleClass="padding-column" />
                                             <TableColumn fx:id="billNameColumn" prefWidth="150.0" text="Bill" />

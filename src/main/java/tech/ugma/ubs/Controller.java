@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import tech.ugma.ubs.model.Bill;
 import tech.ugma.ubs.model.DateRange;
 import tech.ugma.ubs.model.Person;
+import tech.ugma.ubs.table.EditableCurrencyCell;
 import tech.ugma.ubs.warehouse.Warehouse;
 
 import java.io.File;
@@ -24,7 +25,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -112,7 +112,7 @@ public class Controller implements Initializable {
 
     private FileChooser fileChooser = new FileChooser();
 
-    private final NumberFormat moneyFormat = new DecimalFormat("$0.00");
+    private NumberFormat moneyFormat = NumberFormat.getCurrencyInstance();
 
     /**
      * This is the main window.
@@ -554,17 +554,7 @@ public class Controller implements Initializable {
         // The cell factories tell the table how each cell in a given column
         // should look
 
-        totalColumn.setCellFactory(tc -> new TableCell<Bill, BigDecimal>() {
-            @Override
-            protected void updateItem(BigDecimal value, boolean empty) {
-                super.updateItem(value, empty);
-                if (value == null || empty) {
-                    setText("");
-                } else {
-                    setText(moneyFormat.format(value));
-                }
-            }
-        });
+        totalColumn.setCellFactory(tableColumn -> new EditableCurrencyCell());
 
     }
 
