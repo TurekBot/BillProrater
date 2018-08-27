@@ -7,14 +7,13 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.util.StringConverter;
-import tech.ugma.ubs.model.Bill;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.function.UnaryOperator;
 
-public class EditableCurrencyCell extends TableCell<Bill, BigDecimal> {
+public class EditableCurrencyCell<T> extends TableCell<T, BigDecimal> {
 
     private JFXTextField textField;
     private TextFormatter<BigDecimal> textFormatter;

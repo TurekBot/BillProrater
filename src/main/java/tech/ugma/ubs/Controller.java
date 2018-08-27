@@ -554,7 +554,7 @@ public class Controller implements Initializable {
         // The cell factories tell the table how each cell in a given column
         // should look
 
-        totalColumn.setCellFactory(tableColumn -> new EditableCurrencyCell());
+        totalColumn.setCellFactory(tableColumn -> new EditableCurrencyCell<>());
 
     }
 
