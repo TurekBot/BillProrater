@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -18,6 +19,7 @@ import tech.ugma.ubs.model.Bill;
 import tech.ugma.ubs.model.DateRange;
 import tech.ugma.ubs.model.Person;
 import tech.ugma.ubs.table.EditableCurrencyCell;
+import tech.ugma.ubs.table.EditableTextCell;
 import tech.ugma.ubs.warehouse.Warehouse;
 
 import java.io.File;
@@ -554,7 +556,8 @@ public class Controller implements Initializable {
         // The cell factories tell the table how each cell in a given column
         // should look
 
-        totalColumn.setCellFactory(tableColumn -> new EditableCurrencyCell<>());
+        billNameColumn.setCellFactory(EditableTextCell.forTableColumn());
+        totalColumn.setCellFactory(EditableCurrencyCell.forTableColumn());
 
     }
 

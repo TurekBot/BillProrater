@@ -3,9 +3,11 @@ package tech.ugma.ubs.table;
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.util.Callback;
 import javafx.util.StringConverter;
 
 import java.math.BigDecimal;
@@ -103,6 +105,10 @@ public class EditableCurrencyCell<T> extends TableCell<T, BigDecimal> {
 
         setGraphic(textField);
         setContentDisplay(ContentDisplay.TEXT_ONLY);
+    }
+
+    public static <T> Callback<TableColumn<T, BigDecimal>, TableCell<T, BigDecimal>> forTableColumn() {
+        return tableColumn -> new EditableCurrencyCell<>();
     }
 
     @Override
