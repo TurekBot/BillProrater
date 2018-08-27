@@ -27,7 +27,7 @@
                     <HBox alignment="CENTER" BorderPane.alignment="CENTER">
                         <JFXRippler fx:id="navIconRippler" maskType="CIRCLE">
                             <StackPane fx:id="navIconContainer">
-                                <JFXHamburger fx:id="navIcon" />
+                                <JFXHamburger fx:id="navIcon"/>
                             </StackPane>
                         </JFXRippler>
                         <Label fx:id="toolbarTitle" styleClass="title" text="Utility Bill Splitter"/>
@@ -44,44 +44,52 @@
                                 <top>
                                     <Label styleClass="title" text="People">
                                         <padding>
-                                            <Insets bottom="5.0" />
+                                            <Insets bottom="5.0"/>
                                         </padding>
                                     </Label>
                                 </top>
                                 <left>
                                     <ToolBar orientation="VERTICAL" prefWidth="45.0" BorderPane.alignment="CENTER">
-                                        <JFXButton fx:id="addPersonButton" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" styleClass="flat-button" text="Button">
+                                        <JFXButton fx:id="addPersonButton" contentDisplay="GRAPHIC_ONLY" layoutX="10.0"
+                                                   layoutY="10.0" styleClass="flat-button" text="Button">
                                             <graphic>
-                                                <FontAwesomeIconView glyphName="PLUS" />
+                                                <FontAwesomeIconView glyphName="PLUS"/>
                                             </graphic>
                                             <tooltip>
                                                 <Tooltip text="Click here to add a person."/>
                                             </tooltip>
                                         </JFXButton>
-                                        <JFXButton fx:id="removePersonButton" contentDisplay="GRAPHIC_ONLY" styleClass="flat-button">
+                                        <JFXButton fx:id="removePersonButton" contentDisplay="GRAPHIC_ONLY"
+                                                   styleClass="flat-button">
                                             <tooltip>
                                                 <Tooltip text="Click here to remove the person selected in the table."/>
                                             </tooltip>
                                             <graphic>
-                                                <FontAwesomeIconView glyphName="MINUS" />
+                                                <FontAwesomeIconView glyphName="MINUS"/>
                                             </graphic>
                                         </JFXButton>
                                     </ToolBar>
                                 </left>
                                 <center>
-                                    <TableView prefWidth="500" fx:id="personTable" stylesheets="@../css/jfx-table-view.css">
+                                    <TableView prefWidth="500" fx:id="personTable" editable="true"
+                                               stylesheets="@../css/jfx-table-view.css">
                                         <columns>
-                                            <TableColumn editable="false" prefWidth="140.0" sortable="false" styleClass="padding-column" />
-                                            <TableColumn fx:id="personNameColumn" prefWidth="140.0" text="Name" />
-                                            <TableColumn fx:id="moveInDateColumn" prefWidth="110.39996337890625" text="Move-In Date" />
-                                            <TableColumn fx:id="moveoutDateColumn" prefWidth="110.39996337890625" text="Move-Out Date" />
-                                            <TableColumn fx:id="balanceDueColumn" styleClass="numeric-column" prefWidth="99.0" text="Balance Due" />
-                                            <TableColumn editable="false" minWidth="0.0" prefWidth="0.0" sortable="false" styleClass="padding-column" />
+                                            <TableColumn editable="false" prefWidth="140.0" sortable="false"
+                                                         styleClass="padding-column"/>
+                                            <TableColumn fx:id="personNameColumn" prefWidth="140.0" text="Name"/>
+                                            <TableColumn fx:id="moveInDateColumn" prefWidth="110.39996337890625"
+                                                         text="Move-In Date"/>
+                                            <TableColumn fx:id="moveoutDateColumn" prefWidth="110.39996337890625"
+                                                         text="Move-Out Date"/>
+                                            <TableColumn fx:id="balanceDueColumn" styleClass="numeric-column"
+                                                         prefWidth="99.0" text="Balance Due"/>
+                                            <TableColumn editable="false" minWidth="0.0" prefWidth="0.0"
+                                                         sortable="false" styleClass="padding-column"/>
                                         </columns>
                                     </TableView>
                                 </center>
                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                                 </padding>
                             </BorderPane>
                         </left>
@@ -90,35 +98,40 @@
                                 <top>
                                     <Label styleClass="title" text="Bills">
                                         <padding>
-                                            <Insets bottom="5.0" />
+                                            <Insets bottom="5.0"/>
                                         </padding>
                                     </Label>
                                 </top>
                                 <center>
-                                    <TableView prefWidth="500" fx:id="billTable" stylesheets="@../css/jfx-table-view.css" editable="true">
+                                    <TableView prefWidth="500" fx:id="billTable" editable="true"
+                                               stylesheets="@../css/jfx-table-view.css">
                                         <columns>
-                                            <TableColumn editable="false" prefWidth="140.0" sortable="false" styleClass="padding-column" />
-                                            <TableColumn fx:id="billNameColumn" prefWidth="150.0" text="Bill" />
-                                            <TableColumn fx:id="startDateColumn" prefWidth="100.0" text="Start Date" />
-                                            <TableColumn fx:id="endDateColumn" prefWidth="100.0" text="End Date" />
-                                            <TableColumn fx:id="totalColumn" prefWidth="75.0" text="Total" />
-                                            <TableColumn editable="false" prefWidth="140.0" sortable="false" styleClass="padding-column" />
+                                            <TableColumn editable="false" prefWidth="140.0" sortable="false"
+                                                         styleClass="padding-column"/>
+                                            <TableColumn fx:id="billNameColumn" prefWidth="150.0" text="Bill"/>
+                                            <TableColumn fx:id="startDateColumn" prefWidth="100.0" text="Start Date"/>
+                                            <TableColumn fx:id="endDateColumn" prefWidth="100.0" text="End Date"/>
+                                            <TableColumn fx:id="totalColumn" prefWidth="75.0" text="Total"/>
+                                            <TableColumn editable="false" prefWidth="140.0" sortable="false"
+                                                         styleClass="padding-column"/>
                                         </columns>
                                     </TableView>
                                 </center>
                                 <left>
                                     <ToolBar orientation="VERTICAL" prefWidth="45.0" BorderPane.alignment="CENTER">
-                                        <JFXButton fx:id="addBillButton" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" styleClass="flat-button" text="Button">
+                                        <JFXButton fx:id="addBillButton" contentDisplay="GRAPHIC_ONLY" layoutX="10.0"
+                                                   layoutY="10.0" styleClass="flat-button" text="Button">
                                             <graphic>
-                                                <FontAwesomeIconView glyphName="PLUS" />
+                                                <FontAwesomeIconView glyphName="PLUS"/>
                                             </graphic>
                                             <tooltip>
                                                 <Tooltip text="Click here to add a bill."/>
                                             </tooltip>
                                         </JFXButton>
-                                        <JFXButton fx:id="removeBillButton" contentDisplay="GRAPHIC_ONLY" styleClass="flat-button">
+                                        <JFXButton fx:id="removeBillButton" contentDisplay="GRAPHIC_ONLY"
+                                                   styleClass="flat-button">
                                             <graphic>
-                                                <FontAwesomeIconView glyphName="MINUS" />
+                                                <FontAwesomeIconView glyphName="MINUS"/>
                                             </graphic>
                                             <tooltip>
                                                 <Tooltip text="Click here to remove the bill selected in the table."/>
@@ -127,17 +140,20 @@
                                     </ToolBar>
                                 </left>
                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                                 </padding>
                             </BorderPane>
                         </right>
                         <bottom>
-                            <JFXButton fx:id="calculateBreakdownButton" mnemonicParsing="false" prefWidth="400.0" styleClass="raised-button" text="Calculate Bill&#10; Breakdown" BorderPane.alignment="CENTER">
+                            <JFXButton fx:id="calculateBreakdownButton" mnemonicParsing="false" prefWidth="400.0"
+                                       styleClass="raised-button" text="Calculate Bill&#10; Breakdown"
+                                       BorderPane.alignment="CENTER">
                                 <tooltip>
-                                    <Tooltip text="Click here to calculate how much each person owes, based on which days they were occupying the building."/>
+                                    <Tooltip
+                                            text="Click here to calculate how much each person owes, based on which days they were occupying the building."/>
                                 </tooltip>
                                 <BorderPane.margin>
-                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
                                 </BorderPane.margin>
                             </JFXButton>
                         </bottom>
@@ -150,7 +166,7 @@
                                 <graphic>
                                     <!--We need to use an "icon container" so that each icon will take up the same amount of room. -->
                                     <StackPane styleClass="icon-container">
-                                        <FontAwesomeIconView glyphName="FOLDER_OPEN_ALT" size="24" />
+                                        <FontAwesomeIconView glyphName="FOLDER_OPEN_ALT" size="24"/>
                                     </StackPane>
                                 </graphic>
                                 Buttons
@@ -159,7 +175,7 @@
                                 <graphic>
                                     <!--We need to use an "icon container" so that each icon will take up the same amount of room. -->
                                     <StackPane styleClass="icon-container">
-                                        <FontAwesomeIconView glyphName="SAVE" size="24" />
+                                        <FontAwesomeIconView glyphName="SAVE" size="24"/>
                                     </StackPane>
                                 </graphic>
                                 Buttons
@@ -168,23 +184,23 @@
                                 <graphic>
                                     <!--We need to use an "icon container" so that each icon will take up the same amount of room. -->
                                     <StackPane styleClass="icon-container">
-                                        <FontAwesomeIconView glyphName="HAND_PEACE_ALT" size="24" />
+                                        <FontAwesomeIconView glyphName="HAND_PEACE_ALT" size="24"/>
                                     </StackPane>
                                 </graphic>
                                 Buttons
                             </Label>
                             <VBox.margin>
-                                <Insets />
+                                <Insets/>
                             </VBox.margin>
                             <padding>
-                                <Insets top="8.0" />
+                                <Insets top="8.0"/>
                             </padding>
                         </JFXListView>
                     </VBox>
                 </sidePane>
-            <padding>
-               <Insets top="20.0" />
-            </padding>
+                <padding>
+                    <Insets top="20.0"/>
+                </padding>
             </JFXDrawer>
         </center>
     </BorderPane>

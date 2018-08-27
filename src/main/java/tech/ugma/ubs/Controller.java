@@ -19,6 +19,7 @@ import tech.ugma.ubs.model.Bill;
 import tech.ugma.ubs.model.DateRange;
 import tech.ugma.ubs.model.Person;
 import tech.ugma.ubs.table.EditableCurrencyCell;
+import tech.ugma.ubs.table.EditableDateCell;
 import tech.ugma.ubs.table.EditableTextCell;
 import tech.ugma.ubs.warehouse.Warehouse;
 
@@ -554,9 +555,10 @@ public class Controller implements Initializable {
 
         /*Cell Factories*/
         // The cell factories tell the table how each cell in a given column
-        // should look
-
+        // should look and behave
         billNameColumn.setCellFactory(EditableTextCell.forTableColumn());
+        startDateColumn.setCellFactory(EditableDateCell.forTableColumn());
+        endDateColumn.setCellFactory(EditableDateCell.forTableColumn());
         totalColumn.setCellFactory(EditableCurrencyCell.forTableColumn());
 
     }
@@ -581,7 +583,11 @@ public class Controller implements Initializable {
 
         /*Cell Factories*/
         // The cell factories tell the table how each cell in a given column
-        // should look
+        // should look and behave
+
+        personNameColumn.setCellFactory(EditableTextCell.forTableColumn());
+        moveInDateColumn.setCellFactory(EditableDateCell.forTableColumn());
+        moveoutDateColumn.setCellFactory(EditableDateCell.forTableColumn());
         balanceDueColumn.setCellFactory(tc -> new TableCell<Person, BigDecimal>() {
             @Override
             protected void updateItem(BigDecimal value, boolean empty) {
