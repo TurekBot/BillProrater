@@ -33,6 +33,13 @@
                         <Label fx:id="toolbarTitle" styleClass="title" text="Utility Bill Splitter"/>
                     </HBox>
                 </left>
+                <right>
+                    <Label text="To edit a row, double click." BorderPane.alignment="BOTTOM_RIGHT" >
+                        <padding>
+                            <Insets topRightBottomLeft="10.0"/>
+                        </padding>
+                    </Label>
+                </right>
             </JFXToolbar>
         </top>
         <center>
