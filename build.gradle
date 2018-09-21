@@ -4,6 +4,7 @@ plugins {
     id 'application'
     id 'com.github.johnrengelman.shadow' version '2.0.2'
     id "edu.sc.seis.launch4j" version "2.4.3"
+    id "edu.sc.seis.macAppBundle" version "2.2.2"
 }
 
 group 'tech.ugma.ubs'
@@ -32,6 +33,15 @@ repositories {
     mavenCentral()
     mavenLocal()
 }
+
+macAppBundle {
+    mainClassName = project.mainClassName
+    icon = "${projectDir}/src/main/resources/images/app-icons/UtilityBillSplitter.icns"
+    bundleJRE = false
+    javaProperties.put("apple.laf.useScreenMenuBar", "true")
+}
+
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     // https://mvnrepository.com/artifact/com.itextpdf/itextpdf
