@@ -9,6 +9,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -146,6 +149,17 @@ public class Controller implements Initializable {
         loadLastOpenedOrSavedFile();
 
         setUpMrNobody();
+
+        setUpAccelerators();
+    }
+
+    private void setUpAccelerators() {
+
+        // Command + M minimizes the whole window.
+        KeyCombination minimizeCombo = new KeyCodeCombination(KeyCode.M, KeyCombination.SHORTCUT_DOWN);
+        Runnable minimizeAction = () -> primaryStage.setIconified(true);
+        Platform.runLater(() -> primaryStage.getScene().getAccelerators().put(minimizeCombo, minimizeAction));
+
     }
 
     private void setUpShutdownHook(Stage primaryStage) {
